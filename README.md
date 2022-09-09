@@ -16,7 +16,7 @@
 | Student Name | Student Email | GitHub Username |
 |    :---:     |     :---:     |     :---:       |
 | Josef Fiedler      |      jos.fiedler@gmail.com         |     jfiedler5            |
-| member2      |               |                 |
+| Olimpia Aguillon      |  oliii0306@gmail.com            |    oliii0306             |
 | member3      |               |                 |
 | member4      |               |                 |
 | member5      |               |                 |
