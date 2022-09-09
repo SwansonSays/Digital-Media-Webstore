@@ -17,7 +17,7 @@
 |    :---:     |     :---:     |     :---:       |
 | Josef Fiedler      |      jos.fiedler@gmail.com         |     jfiedler5            |
 | Olimpia Aguillon      |  oliii0306@gmail.com            |    oliii0306             |
-| member3      |               |                 |
+| Yasaman Pakdel      |  ypakdel@sfsu.edu             |   yasi98              |
 | member4      |               |                 |
 | member5      |               |                 |
 | member6      |               |                 |
