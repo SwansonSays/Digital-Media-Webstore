@@ -15,7 +15,7 @@
 
 | Student Name | Student Email | GitHub Username |
 |    :---:     |     :---:     |     :---:       |
-| member1      |      jos.fiedler@gmail.com         |     jfiedler5            |
+| Josef Fiedler      |      jos.fiedler@gmail.com         |     jfiedler5            |
 | member2      |               |                 |
 | member3      |               |                 |
 | member4      |               |                 |
