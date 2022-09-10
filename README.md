@@ -18,7 +18,7 @@
 | Josef Fiedler      |      jos.fiedler@gmail.com         |     jfiedler5            |
 | Olimpia Aguillon      |  oliii0306@gmail.com            |    oliii0306             |
 | Yasaman Pakdel      |  ypakdel@sfsu.edu             |   yasi98              |
-| member4      |               |                 |
+| Robert Swanson      |  rswanson1@mail.sfsu.edu             |  SwansonSays               |
 | member5      |               |                 |
 | member6      |               |                 |
 
