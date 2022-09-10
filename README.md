@@ -15,7 +15,7 @@
 
 | Student Name | Student Email | GitHub Username |
 |    :---:     |     :---:     |     :---:       |
-| Josef Fiedler      |      jos.fiedler@gmail.com         |     jfiedler5            |
+| Josef Fiedler      |      jfiedler@sfsu.edu         |     jfiedler5            |
 | Olimpia Aguillon      |  oaguillon@mail.sfsu.edu            |    oliii0306             |
 | Yasaman Pakdel      |  ypakdel@sfsu.edu             |   yasi98              |
 | Robert Swanson      |  rswanson1@mail.sfsu.edu             |  SwansonSays               |
