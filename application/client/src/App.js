@@ -13,7 +13,7 @@ import Home from "./Home";
 import Olimpia from "./Olimpia";
 import Robert from "./Robert";
 import Josef from "./Josef";
-
+import Yasi from "./Yasi";
 
 function App() {
 return (
@@ -37,6 +37,7 @@ return (
 		<Route path="/olimpia" element={<Olimpia/>} />
 		<Route path="/robert" element={<Robert />} />
 		<Route path="/josef" element={<Josef/>} />
+		<Route path="/Yasi" element={<Yasi/>} />
     
 		</Routes>
 	</Router>
