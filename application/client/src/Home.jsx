@@ -24,7 +24,7 @@ return (
   <li class="list-group-item"><Link to="/josef">Josef</Link></li>
   <li class="list-group-item"><Link to="/olimpia">Olimpia</Link></li>
   <li class="list-group-item"><Link to="/donnovan">Donnovan</Link></li>
-  <li class="list-group-item"><Link to="/yasaman">Yasi</Link></li>
+  <li class="list-group-item"><Link to="/Yasi">Yasi</Link></li>
   <li class="list-group-item"><Link to="/robert">Robert</Link></li>
 </ul>
     </ul>
