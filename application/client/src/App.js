@@ -14,6 +14,7 @@ import Olimpia from "./Olimpia";
 import Robert from "./Robert";
 import Josef from "./Josef";
 import Yasi from "./Yasi";
+import Himani from "./Himani";
 
 function App() {
 return (
@@ -38,6 +39,7 @@ return (
 		<Route path="/robert" element={<Robert />} />
 		<Route path="/josef" element={<Josef/>} />
 		<Route path="/Yasi" element={<Yasi/>} />
+		<Route path="/himani" element={<Himani/>} />
     
 		</Routes>
 	</Router>
