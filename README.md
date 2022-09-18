@@ -20,6 +20,6 @@
 | Yasaman Pakdel      |  ypakdel@sfsu.edu             |   yasi98              |
 | Robert Swanson      |  rswanson1@mail.sfsu.edu             |  SwansonSays               |
 | Himani Varshney      |   hvarshney1@sfsu.edu            |        himaniv14         |
-| member6      |               |                 |
+| Donnovan Jiles      |   djiles@mail.sfsu.edu       |    DonnovanJiles70122             |
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
