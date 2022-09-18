@@ -8,15 +8,22 @@
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
 1. Server URL or IP
+- http://54.226.142.230/
 2. SSH username
+- ec2-user
 3. SSH password or key.
     <br> If a ssh key is used please upload the key to the credentials folder.
+- ssh key is uploaded.
 4. Database URL or IP and port used.
     <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
+- database not yet in usage
 5. Database username
 6. Database password
 7. Database name (basically the name that contains all your tables)
 8. Instructions on how to use the above information.
+- To connect via ssh: 
+- Download Key_pair.pem locally
+- From the folder containing the .pem file, open PS and run ssh -i .\Key_pair.pem ec2-user@54.226.142.230
 
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
