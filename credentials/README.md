@@ -8,10 +8,10 @@
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
 1. Server URL or IP
-- http://54.226.142.230/
+- http://34.210.33.83/
 2. SSH username
-- ec2-user
-3. SSH password or key.
+- ubuntu@ec2-34-210-33-83.us-west-2.compute.amazonaws.com
+3. SSH password or key. -  react-server-key.pem
     <br> If a ssh key is used please upload the key to the credentials folder.
 - ssh key is uploaded.
 4. Database URL or IP and port used.
