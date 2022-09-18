@@ -15,6 +15,7 @@ import Robert from "./Robert";
 import Josef from "./Josef";
 import Yasi from "./Yasi";
 import Himani from "./Himani";
+import Donnovan from "./Donnoavn"
 
 function App() {
 return (
@@ -40,6 +41,7 @@ return (
 		<Route path="/josef" element={<Josef/>} />
 		<Route path="/Yasi" element={<Yasi/>} />
 		<Route path="/himani" element={<Himani/>} />
+		<Route path="/donnovan" element={<Donnovan/>} />
     
 		</Routes>
 	</Router>
