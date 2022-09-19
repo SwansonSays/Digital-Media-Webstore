@@ -21,9 +21,6 @@
 6. Database password
 7. Database name (basically the name that contains all your tables)
 8. Instructions on how to use the above information.
-- To connect via ssh: 
-- Download Key_pair.pem locally
-- From the folder containing the .pem file, open PS and run ssh -i .\Key_pair.pem ec2-user@54.226.142.230
 
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
