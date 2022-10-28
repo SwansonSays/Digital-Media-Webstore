@@ -1,10 +1,20 @@
+/* 
+ * File: SearchTest.js
+ * Author: Robert Swanson
+ * Description: Test page for verticle prototype
+ */
+
 import React from "react";
 import SearchBar from './SearchBar'
+import { useState } from 'react';
+import PostPage from "./PostPage";
 
 const SearchTest = () => {
+	const [searchResults, setSearchResults] = useState([]);
 	return (
 		<div>
-			<SearchBar />
+			<SearchBar setSearchResults={setSearchResults} />
+			<PostPage searchResults={searchResults} />
 		</div>
 	);
 };
