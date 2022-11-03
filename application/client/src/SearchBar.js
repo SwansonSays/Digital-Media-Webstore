@@ -21,7 +21,7 @@ const SearchBar = ({ setSearchResults }) => {
 
 
         //array for search results to be displayed
-        const resultsArray = [{ "id": "1", "title": "TestTitle", "body": "testbody" }, { "id": "2", "title": "Test 2 Title", "body": "testbody 2" }]; //Hard coded search results to test post and postpage
+        const resultsArray = [{"title": "TestTitle", "description": "testbody", "author": "robby", "path": "", "price": "free", "category": "image" }, {"title": "Test 2 Title", "body": "testbody 2", "path": "" }]; //Hard coded search results to test post and postpage
 
         setSearchResults(resultsArray);
     }
@@ -31,23 +31,28 @@ const SearchBar = ({ setSearchResults }) => {
     }
 
     return (
+
         <header>
-            <form className="search" onSubmit={handleSubmit}>
-                <select onChange={handleChange}>
+            <div class="search">
+            <form class="searchForm"className="search" onSubmit={handleSubmit}>
+                <select class="dropdown" onChange={handleChange}>
                     <option value="all">All</option>
-                    <option value="photo">Photos</option>
-                    <option value="music">Music</option>
-                    <option value="class">Classes</option>
-                    <option value="ebook">eBooks</option>
+                    <option value="image">Image</option>
+                    <option value="video">Video</option>
+                    <option value="class">Class</option>
                 </select>
                 <input
                     type="text"
                     id="search"
                     placeholder="Search..."
                     name="searchData"
+                    class="searchBar"
                 />
-                <button className="searchButton">Search</button>
+                <button class='searchButton' className="searchButton">Search</button>
             </form>
+            </div>
+
+        
         </header>
         )
 }
