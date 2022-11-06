@@ -20,3 +20,45 @@ img{
   margin-right: auto;
   width: 20%;
 }
+
+/* Styling for search bar */
+.search {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+.searchForm {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+.dropdown {
+    height: 40px;
+    border-right: none;
+    border-radius: 5px 0px 0px 5px;
+}
+.searchBar {
+    height: 40px;
+    width: 400px;
+    border-radius: 0px 5px 5px 0px;
+}
+.searchButton {
+    top: -1px;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* Styling for post cards */
+.postPage {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+.card {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
