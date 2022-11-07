@@ -8,19 +8,19 @@
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
 1. Server URL or IP
-- http://34.210.33.83/
+- http://34.219.91.93:3000/SearchTest
 2. SSH username
-- ubuntu@ec2-34-210-33-83.us-west-2.compute.amazonaws.com
+- ubuntu@ec2-34-219-91-93.us-west-2.compute.amazonaws.com
 3. SSH password or key. -  react-server-key.pem
     <br> If a ssh key is used please upload the key to the credentials folder.
 - ssh key is uploaded.
-4. Database URL or IP and port used.
-    <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
+4. Database URL or IP and port used. 
+    <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class. - 34.219.91.93:3306
 5. Database username
 - db_admin
 6. Database password
 - csc648dbpassword
-7. Database name (basically the name that contains all your tables)
+7. Database name (basically the name that contains all your tables) - mediastore
 8. Instructions on how to use the above information.
 
 # Most important things to Remember
