@@ -15,7 +15,7 @@
     <br> If a ssh key is used please upload the key to the credentials folder.
 - ssh key is uploaded.
 4. Database URL or IP and port used. 
-    <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class. - 34.219.91.93:3306
+    <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class. - 172.31.9.252:3306
 5. Database username
 - db_admin
 6. Database password
