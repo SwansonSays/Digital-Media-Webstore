@@ -4,11 +4,31 @@
  * Description: Search bar component with category pulldown menu
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const SearchBar = ({ setSearchResults }) => {
     const [category, setCategory] = useState("all");
+
+
+    function setCategories() {
+        //Categories return from DB goes here
+        const categories = { 'categories': ['Audio', 'Video', 'Class'] }; //Hard coded for testing
+
+        const options = []; //Array of <option> to be returned to dropdown
+
+        //Populates options array for each category returned by DB
+        for (let i = 0; i <= categories.categories.length - 1; i++) {
+            options.push(<option value={categories.categories[i]}>{categories.categories[i]}</option>);
+        }
+        
+        return options;
+    }
+
+    //Calls setCatergories() on page load
+    useEffect(() => {
+        setCategories();
+    }, [])
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -53,9 +73,7 @@ const SearchBar = ({ setSearchResults }) => {
             <form class="searchForm"className="search" onSubmit={handleSubmit}>
                 <select class="dropdown" onChange={handleChange}>
                     <option value="all">All</option>
-                    <option value="image">Image</option>
-                    <option value="video">Video</option>
-                    <option value="class">Class</option>
+                    {setCategories()}
                 </select>
                 <input
                     type="text"
