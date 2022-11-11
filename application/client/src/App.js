@@ -19,6 +19,7 @@ import Himani from "./Himani";
 import Donnovan from "./Donnoavn";
 import SearchTest from "./SearchTest";
 import Dashboard from "./dashboard";
+import MyProfile from "./userprofile";
 
 function App() {
 return (
@@ -47,6 +48,7 @@ return (
 		<Route path="/donnovan" element={<Donnovan />} />
 		<Route path="/SearchTest" element={<SearchTest/>} />
 		<Route path="/dashboard" element={<Dashboard/>} />
+		<Route path="/userprofile" element={<MyProfile/>} />
 	
     
 		</Routes>

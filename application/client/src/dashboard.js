@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import myMessages from './messages'
-import myProfile from './userprofile'
+import MyProfile from './userprofile'
 import Sidebar from './sidebar';
 
 function Dashboard (){
     return(
         
         <div className="container mt-4">
+            Welcome
             <div className="row"> 
                 <aside className="col-md-3">
-                    <Sidebar />
+                
                 </aside>
                 <section className="col-md-9">
-    
+                <MyProfile />
                 </section>
                 
 
