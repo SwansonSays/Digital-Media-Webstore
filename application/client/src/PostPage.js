@@ -14,7 +14,7 @@ const PostPage = ({ searchResults }) => {
     const content = results;
 
     return (
-        <main class="postPage">{content}</main>
+        <main className="postPage">{content}</main>
     )
 }
 export default PostPage

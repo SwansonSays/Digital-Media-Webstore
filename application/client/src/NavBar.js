@@ -1,14 +1,8 @@
-/* 
- * File: SearchBar.js
- * Author: Robert Swanson
- * Description: Search bar component with category pulldown menu
- */
+import { Link, useNavigate } from "react-router-dom"
+import { useState, useEffect } from 'react';
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-
-const SearchBar = ({ setSearchResults}) => {
+const NavBar = ({ setSearchResults }) => {
+    //const [searchResults, setSearchResults] = useState([]);
     const [category, setCategory] = useState("all");
     const navigate = useNavigate();
 
@@ -22,7 +16,7 @@ const SearchBar = ({ setSearchResults}) => {
         for (let i = 0; i <= categories.categories.length - 1; i++) {
             options.push(<option key={i} value={categories.categories[i]}>{categories.categories[i]}</option>);
         }
-        
+
         return options;
     }
 
@@ -36,7 +30,7 @@ const SearchBar = ({ setSearchResults}) => {
 
 
         console.log("search term in handlesubmit !" + event.target.searchData.value + "!");
-        navigate('/DisplayResults');
+        navigate('/ResultsPage');
 
         console.log("search term in handlesubmit !" + event.target.searchData.value + "!");
         // prints search value and seletected category to console
@@ -64,7 +58,7 @@ const SearchBar = ({ setSearchResults}) => {
 
 
         //array for search results to be displayed
-        const resultsArray = [{"title": "TestTitle", "description": "testbody", "author": "robby", "path": "", "price": "free", "category": "image" }, {"title": "Test 2 Title", "body": "testbody 2", "path": "" }]; //Hard coded search results to test post and postpage
+        const resultsArray = [{ "title": "TestTitle", "description": "testbody", "author": "robby", "path": "", "price": "free", "category": "image" }, { "title": "Test 2 Title", "body": "testbody 2", "path": "" }]; //Hard coded search results to test post and postpage
 
         setSearchResults(resultsArray);
     }
@@ -73,10 +67,10 @@ const SearchBar = ({ setSearchResults}) => {
     function handleChange(event) {
         setCategory(event.target.value);
     }
-
     return (
-
-       
+        <nav className="navbar navbar-sticky-top py-0 bg-white border border-dark">
+            <h1 href="/"><Link className="brand" to="/">Media Store</Link></h1>
+            <button className="btn btn-lg btn-block nav-link bg-white">About Us</button>
             <form className="searchForm" onSubmit={handleSubmit}>
                 <select className="dropdown" onChange={handleChange}>
                     <option value="all">All</option>
@@ -89,10 +83,11 @@ const SearchBar = ({ setSearchResults}) => {
                     name="searchData"
                     className="searchBar"
                 />
-            <button className="searchButton">Search</button>
+                <button className="searchButton">Search</button>
             </form>
-       
-        )
+            <Link className="btn btn-lg btn-block nav-link bg-white postButton" to="/">Post</Link>
+            <Link className="btn btn-lg btn-block nav-link bg-white logInButton" to="/">Sign in/Register</Link>
+        </nav>
+    )
 }
-
-export default SearchBar
+export default NavBar

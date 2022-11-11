@@ -17,6 +17,7 @@ import Yasi from "./Yasi";
 import Himani from "./Himani";
 import Donnovan from "./Donnoavn";
 import SearchTest from "./SearchTest";
+import ResultsPage from "./ResultsPage";
 
 function App() {
 return (
@@ -43,7 +44,8 @@ return (
 		<Route path="/Yasi" element={<Yasi/>} />
 		<Route path="/himani" element={<Himani/>} />
 		<Route path="/donnovan" element={<Donnovan />} />
-		<Route path="/SearchTest" element={<SearchTest/>} />
+				<Route path="/SearchTest" element={<SearchTest />} />
+				<Route path="/ResultsPage" element={<ResultsPage />} />
     
 		</Routes>
 	</Router>
