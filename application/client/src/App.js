@@ -17,6 +17,7 @@ import Yasi from "./Yasi";
 import Himani from "./Himani";
 import Donnovan from "./Donnoavn";
 import SearchTest from "./SearchTest";
+import Dashboard from "./dashboard";
 
 function App() {
 return (
@@ -44,6 +45,8 @@ return (
 		<Route path="/himani" element={<Himani/>} />
 		<Route path="/donnovan" element={<Donnovan />} />
 		<Route path="/SearchTest" element={<SearchTest/>} />
+		<Route path="/dashboard" element={<Dashboard/>} />
+	
     
 		</Routes>
 	</Router>
