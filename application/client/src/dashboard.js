@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { Link } from 'react-router-dom';
 import myMessages from './messages'
 import myProfile from './userprofile'
 import Sidebar from './sidebar';
@@ -8,7 +8,6 @@ function Dashboard (){
     return(
         
         <div className="container mt-4">
-             <p className="text-center"> <p className= "h1">welcome</p></p>
             <div className="row"> 
                 <aside className="col-md-3">
                     <Sidebar />
