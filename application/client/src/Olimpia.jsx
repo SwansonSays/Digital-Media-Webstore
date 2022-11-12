@@ -1,11 +1,12 @@
 import React from "react";
 import icon from './img/Olimpia_Aguillon-5.jpg';
-
+import NavBar from './NavBar';
 
 
 const ContactUs = () => {
 return (
 	<div>
+		<NavBar />
 	<p class="text-center"> <p class= "h1">Olimpia Aguillon</p></p>
 	<img src={icon} alt="icon" class= "rounded-circle"/>
 	<br></br>

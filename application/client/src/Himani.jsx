@@ -1,11 +1,12 @@
 import React from "react";
 import icon from './img/himani.jpg';
-
+import NavBar from './NavBar';
 
 
 const ContactUs = () => {
 return (
 	<div>
+		<NavBar />
 	<p class="text-center"> <p class= "h1">Himani Varshney</p></p>
 	<img src={icon} alt="icon" class= "rounded-circle"/>
 	<br></br>

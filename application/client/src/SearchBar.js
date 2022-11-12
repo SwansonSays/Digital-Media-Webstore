@@ -36,7 +36,7 @@ const SearchBar = ({ setSearchResults}) => {
 
 
         console.log("search term in handlesubmit !" + event.target.searchData.value + "!");
-        navigate('/DisplayResults');
+        navigate('/ResultsPage');
 
         console.log("search term in handlesubmit !" + event.target.searchData.value + "!");
         // prints search value and seletected category to console

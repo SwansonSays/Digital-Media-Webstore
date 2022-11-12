@@ -7,11 +7,11 @@
 
 import Post from "./Post"
 
-const PostPage = ({ searchResults }) => {
+const PostPage = ({ results }) => {
 
-    const results = searchResults.map(post => <Post key={post.id} post={post} />)
+    const mappedResults = results.map(post => <Post key={post.id} post={post} />)
 
-    const content = results;
+    const content = mappedResults;
 
     return (
         <main className="postPage">{content}</main>

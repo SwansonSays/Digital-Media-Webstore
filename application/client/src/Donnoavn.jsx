@@ -1,9 +1,11 @@
 import React from "react";
 import icon from './img/avatarPlaceHolder.jpg';
+import NavBar from './NavBar';
 
 const ContactUs = () => {
 return (
 	<div>
+		<NavBar />
 	<p class="text-center"> <p class= "h1">Donnovan Jiles</p></p>
 	<img src={icon} alt="icon" class= "rounded-circle"/>
 	<br></br>
