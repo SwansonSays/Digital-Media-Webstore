@@ -18,7 +18,7 @@ import Yasi from "./Yasi";
 import Himani from "./Himani";
 import Donnovan from "./Donnoavn";
 import SearchTest from "./SearchTest";
-import Dashboard from "./dashboard";
+//import Dashboard from "./dashboard";
 import MyProfile from "./userprofile";
 import MyMessages from "./messages";
 import MyPosts from "./myposts";
@@ -49,7 +49,6 @@ return (
 		<Route path="/himani" element={<Himani/>} />
 		<Route path="/donnovan" element={<Donnovan />} />
 		<Route path="/SearchTest" element={<SearchTest/>} />
-		<Route path="/dashboard" element={<Dashboard/>} />
 		<Route path="/userprofile" element={<MyProfile/>} />
 		<Route path="/messages" element={<MyMessages/>} />
 		<Route path="/myposts" element={<MyPosts/>} />

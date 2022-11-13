@@ -22,20 +22,21 @@ function MyMessages(){
                                     </tr>
                                 </thead>
                                 <tbody> 
+                                
                                     <tr>
-                                    <td>message 1</td>
+                                    <td><Link to='/messages' className='list-group-item list-group-item-action'> message 1</Link></td>
                                     <td>sender</td>
                                     <td>
                                         <button className='btn btn-danger btn-sm active'>Delete</button>
                                         </td>
-                                        </tr>
+                                     </tr>
                                         <tr>
-                                        <td>message 2</td>
+                                        <td><Link to='/messages' className='list-group-item list-group-item-action'> message 2</Link></td>
                                         <td>sender</td>
                                     <td>
                                         <button className='btn btn-danger btn-sm active'>Delete</button>
                                         </td> 
-                                        </tr>
+                                      </tr>  
                                         
                                 </tbody>
                             </table>
