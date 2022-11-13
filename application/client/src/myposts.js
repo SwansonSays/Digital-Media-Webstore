@@ -15,7 +15,7 @@ function MyPosts(){
                  <div className="card">
                   <h5 className="card-header">My Posts</h5>
                    <div className="card-body">
-                         <table className="table table-bordered">
+                         <table id="dtBasicExample" className="table table-bordered">
                          <thead>
                                     <tr>
                                         <th>Post Name</th>
@@ -26,7 +26,7 @@ function MyPosts(){
                          <tbody> 
                          
                                     <tr>
-                                    <td><Link to='/messages' className='list-group-item list-group-item-action'> post 1</Link></td>
+                                    <td><Link to='/myposts' className='list-group-item list-group-item-action'> post 1</Link></td>
                                     <td>posted</td>
                                     <td>01/11/22</td>
 
@@ -36,7 +36,7 @@ function MyPosts(){
                                         </tr>
 
                                         <tr>
-                                        <td><Link to='/messages' className='list-group-item list-group-item-action'> post2</Link></td>
+                                        <td><Link to='/myposts' className='list-group-item list-group-item-action'> post2</Link></td>
                                     <td>pending</td>
                                     <td>03/04/22</td>
 
