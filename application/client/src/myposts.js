@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom'
 import Sidebar from './sidebar';
 import Dashboard from './dashboard';
+import Post from "./Post"
 
 function MyPosts(){
     return(
@@ -15,7 +16,7 @@ function MyPosts(){
                  <div className="card">
                   <h5 className="card-header">My Posts</h5>
                    <div className="card-body">
-                         <table id="dtBasicExample" className="table table-bordered">
+                         <table className="table table-bordered">
                          <thead>
                                     <tr>
                                         <th>Post Name</th>
@@ -26,7 +27,8 @@ function MyPosts(){
                          <tbody> 
                          
                                     <tr>
-                                    <td><Link to='/myposts' className='list-group-item list-group-item-action'> post 1</Link></td>
+                                    <td><Link to='/myposts' className='list-group-item list-group-item-action'> {Post.title }</Link></td>
+                                   
                                     <td>posted</td>
                                     <td>01/11/22</td>
 

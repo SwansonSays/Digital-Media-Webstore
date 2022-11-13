@@ -16,7 +16,7 @@ function MyProfile(){
                   <h5 className='card-header'>My Profile</h5>
                    <div className='card-body'>
                          <table className="table table-bordered">
-                        <p> Name:</p>
+                        <p> Name: Joe</p>
                         <p>  Last Name:</p>
                         <p> Email:</p>
                   </table>
