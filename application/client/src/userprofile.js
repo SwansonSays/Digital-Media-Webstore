@@ -17,8 +17,8 @@ function MyProfile(){
                    <div className='card-body'>
                          <table className="table table-bordered">
                         <p> Name: Joe</p>
-                        <p>  Last Name:</p>
-                        <p> Email:</p>
+                        <p>  Last Name: Smith</p>
+                        <p> Email: Joesmith@gmail.com</p>
                   </table>
                  </div>
              </div>

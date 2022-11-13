@@ -27,7 +27,7 @@ function MyPosts(){
                          <tbody> 
                          
                                     <tr>
-                                    <td><Link to='/myposts' className='list-group-item list-group-item-action'> {Post.title }</Link></td>
+                                    <td><Link to='/myposts' className='list-group-item list-group-item-action'> Post1</Link></td>
                                    
                                     <td>posted</td>
                                     <td>01/11/22</td>
