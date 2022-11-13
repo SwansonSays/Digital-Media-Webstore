@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import Sidebar from './sidebar';
 import Dashboard from './dashboard';
 
-function MyProfile(){
+function MyPosts(){
     return(
         <div className="container mt-4">
             <p class="text-center"> <p class= "h1">Welcome Joe</p></p>
@@ -12,13 +12,20 @@ function MyProfile(){
                 </aside>
                 <section className='col-md-9'>
                 <Sidebar />
-                 <div className='card'>
-                  <h5 className='card-header'>My Profile</h5>
-                   <div className='card-body'>
+                 <div className="card">
+                  <h5 className="card-header">My Posts</h5>
+                   <div className="card-body">
                          <table className="table table-bordered">
-                        <p> Name:</p>
-                        <p>  Last Name:</p>
-                        <p> Email:</p>
+                         <tbody> 
+                                    <tr>
+                                    <td>post 1</td>
+                
+                                    <td>
+                                        <button className='btn btn-danger btn-sm active'>Delete</button>
+                                        </td>
+                                        </tr>
+                        </tbody>
+                        
                   </table>
                  </div>
              </div>
@@ -29,4 +36,4 @@ function MyProfile(){
    
     );
 }
-export default MyProfile;
+export default MyPosts;

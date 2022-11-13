@@ -20,6 +20,8 @@ import Donnovan from "./Donnoavn";
 import SearchTest from "./SearchTest";
 import Dashboard from "./dashboard";
 import MyProfile from "./userprofile";
+import MyMessages from "./messages";
+import MyPosts from "./myposts";
 
 function App() {
 return (
@@ -49,7 +51,8 @@ return (
 		<Route path="/SearchTest" element={<SearchTest/>} />
 		<Route path="/dashboard" element={<Dashboard/>} />
 		<Route path="/userprofile" element={<MyProfile/>} />
-	
+		<Route path="/messages" element={<MyMessages/>} />
+		<Route path="/myposts" element={<MyPosts/>} />
     
 		</Routes>
 	</Router>
