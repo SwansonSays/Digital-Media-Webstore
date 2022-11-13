@@ -16,10 +16,30 @@ function MyPosts(){
                   <h5 className="card-header">My Posts</h5>
                    <div className="card-body">
                          <table className="table table-bordered">
-                         <tbody> 
+                         <thead>
                                     <tr>
-                                    <td>post 1</td>
-                
+                                        <th>Post Name</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                         <tbody> 
+                         
+                                    <tr>
+                                    <td><Link to='/messages' className='list-group-item list-group-item-action'> post 1</Link></td>
+                                    <td>posted</td>
+                                    <td>01/11/22</td>
+
+                                    <td>
+                                        <button className='btn btn-danger btn-sm active'>Delete</button>
+                                        </td>
+                                        </tr>
+
+                                        <tr>
+                                        <td><Link to='/messages' className='list-group-item list-group-item-action'> post2</Link></td>
+                                    <td>pending</td>
+                                    <td>03/04/22</td>
+
                                     <td>
                                         <button className='btn btn-danger btn-sm active'>Delete</button>
                                         </td>
