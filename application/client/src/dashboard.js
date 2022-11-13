@@ -9,7 +9,7 @@ function Dashboard (){
     return(
         
         <div className="container mt-4">
-          <p class="text-center"> <p class= "h1">Welcome Joe</p></p>
+          
             <div className="row"> 
                 <aside className="col-md-3">
             
