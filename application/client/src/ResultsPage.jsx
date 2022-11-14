@@ -17,7 +17,6 @@ const ResultsPage = () => {
 		<div>
 			<NavBar ></NavBar>
 			<div className="resultsInfo">
-				<div className="resultsNumber">{location.state.length} results found</div>
 				<select className="sortBy">
 					<option>Sort By</option>
 					<option>Price &#8593;</option>
@@ -25,6 +24,9 @@ const ResultsPage = () => {
 				</select>
 			</div>
 			<PostPage results={location.state} />
+			<div className="resultsInfo">
+				<div className="resultsNumber">{location.state.length} results found</div>
+				</div>
 			<Footer />
 		</div>
 	);
