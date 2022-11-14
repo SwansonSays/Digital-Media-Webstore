@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from './NavBar';
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const AboutUs = () => {
 	return (
@@ -21,6 +22,7 @@ const AboutUs = () => {
 					<li class="list-group-item"><Link to="/robert">Robert</Link></li>
 				</ul>
 			</ul>
+			<Footer />
 		</div>
 	);
 };
