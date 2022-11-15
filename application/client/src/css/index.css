@@ -178,35 +178,49 @@ img{
     margin: .5rem;
 }
 
+
+
+
+
+
+
+
+
+/*
 button {
-    margin-left: 600px;
+    margin-left: 37.5rem;
+}
+    */
+.free-button {
+    margin-left: 37.5rem;
 }
 
+
 .bridge-img {
-    margin-left: 150px;
-    margin-top: -335px;
+    margin-left: 9.375rem;
+    margin-top: -20.938rem;
     width: 30%;
 }
 
 .contact-post {
-    margin-top: 100px;
-    margin-left: 600px;
+    margin-top: 6.25rem;
+    margin-left: 37.5rem;
 }
 
 .category-price {
-    margin-left: 600px;
-    padding-top: 100px;
+    margin-left: 37.5rem;
+    padding-top: 6.25rem;
 }
 
 .book-img {
-    margin-left: 225px;
-    margin-top: -425px;
+    margin-left: 14.063rem;
+    margin-top: -26.563rem;
     width: 25%;
 }
 
 .category {
-    margin-left: 600px;
-    padding-top: 190px;
+    margin-left: 37.5rem;
+    padding-top: 11.875rem;
 }
 
 .fields {
@@ -216,8 +230,8 @@ button {
 }
 
 .submit-button {
-    margin-top: 25px;
-    margin-left: -460px;
+    margin-top: 1.563rem;
+    margin-left: 8.75rem;
 }
 
 .title {
@@ -225,15 +239,15 @@ button {
 }
 
 .auth-inner {
-    width: 450px;
-    height: 400px;
+    width: 28.125rem;
+    height: 25rem;
     margin: auto;
     font-weight: 4000;
-    margin-top: 100px;
+    margin-top: 6.25rem;
     background: #ffffff;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    padding: 40px 55px 45px 55px;
-    border-radius: 15px;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
+    border-radius: 0.938rem;
     transition: all .3s;
 }
 
@@ -247,60 +261,60 @@ button {
 .link {
     text-align: right;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .links {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .auth-inner1 {
-    width: 450px;
-    height: 650px;
+    width: 28.125rem;
+    height: 40.625rem;
     margin: auto;
     font-weight: 4000;
-    margin-bottom: 100px;
-    margin-top: 100px;
+    margin-bottom: 6.25rem;
+    margin-top: 6.25rem;
     background: #ffffff;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    padding: 40px 55px 45px 55px;
-    border-radius: 15px;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
+    border-radius: 0.938rem;
     transition: all .3s;
 }
 
 .terms {
     font-weight: 400;
-    font-size: 11px;
+    font-size: 0.688rem;
 }
 
 .auth-inner2 {
-    width: 450px;
-    height: 300px;
+    width: 28.125rem;
+    height: 18.75rem;
     margin: auto;
     font-weight: 4000;
-    margin-bottom: 100px;
-    margin-top: 100px;
+    margin-bottom: 6.25rem;
+    margin-top: 6.25rem;
     background: #ffffff;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    padding: 40px 55px 45px 55px;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
     border-radius: 15px;
     transition: all .3s;
 }
 
 .auth-inner3 {
-    width: 450px;
-    height: 500px;
-    margin-left: 500px;
-    margin-top: 100px;
+    width: 28.125rem;
+    height: 31.25rem;
+    margin-left: 31.25rem;
+    margin-top: 6.25rem;
     font-weight: 4000;
     background: #ffffff;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    padding: 40px 55px 45px 55px;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
     border-radius: 15px;
     transition: all .3s;
 }
 
 .test {
-    margin-left: 600px;
+    margin-left: 37.5rem;
 }
