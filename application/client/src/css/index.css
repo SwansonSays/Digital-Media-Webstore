@@ -2,6 +2,8 @@ body {
   background-color: #E9D597;
   color: #231161;
   margin: auto;
+  padding-top: 3.5rem;
+  padding-bottom: 2.5rem;
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -22,43 +24,318 @@ img{
 }
 
 /* Styling for search bar */
-.search {
-    display: block;
-    text-align: center;
-    padding: 10px;
-}
 .searchForm {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
+    display: flex;
+    text-align: center;
+    flex: 0 40%;
+    justify-content: center;
 }
 .dropdown {
     height: 40px;
     border-right: none;
     border-radius: 5px 0px 0px 5px;
+    flex: 0 10%;
+    text-align: center;
 }
 .searchBar {
     height: 40px;
-    width: 400px;
     border-radius: 0px 5px 5px 0px;
+    flex: 0 80%;
 }
 .searchButton {
     top: -1px;
     height: 40px;
     border-radius: 5px;
     margin-left: 10px;
+    flex: 0 10%;
 }
+
+.navBar {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    flex-direction: row;
+}
+
+#navBarOverride {
+    border-bottom: 1px #231161;
+}
+
+.logInButton{
+    padding-right: 2.5rem;
+}
+.brand {
+    padding-left: 2.5rem;
+    color: #231161;
+}
+.nav-link{
+
+}
+
+.footer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+}
+.footer-contact {
+    text-align: left;
+    flex: 0 30%;
+    padding-left: 2.5rem;
+}
+.footer-policy {
+    justify-content: center;
+    flex: 0 30%;
+}
+.footer-brand {
+    padding-right: 2.5rem;
+    margin-left: auto;
+}
+
+
 
 /* Styling for post cards */
 .postPage {
     display: block;
     text-align: center;
-    padding: 10px;
+    padding: 2rem;
 }
+
 .card {
     display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: .5rem;
     text-align: left;
+
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: contain;
+}
+
+.card-title {
+    text-align: center;
+}
+
+
+
+.resultsInfo {
+    display: flex;
+    padding: .5rem;
+}
+
+.resultsNumber {
+    margin-left: auto;
+}
+
+.sortBy {
+    margin-left: auto;
+}
+
+
+.title{
+    text-align: center;
+}
+
+.upload-wrapper {
+    align-items: center;
+}
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    padding-top: .5rem;
+    justify-content: center;
+    width: 45%;
+    margin: auto;
+}
+
+.upload-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.upload-text {
+    width: 50%;
+    margin-left: 10%;
+}
+.upload-file {
+    margin-left: 10%;
+}
+
+.upload-btn{
+    margin-left: auto;
+    width: 15%;
+}
+
+.home-title{
+    text-align: center;
+}
+.home-description {
+    text-align: center;
+    padding: .5rem;
+    margin: .5rem;
+}
+
+
+
+
+
+
+
+
+
+/*
+button {
+    margin-left: 37.5rem;
+}
+    */
+.free-button {
+    margin-left: 37.5rem;
+}
+
+
+.bridge-img {
+    margin-left: 9.375rem;
+    margin-top: -20.938rem;
+    width: 30%;
+}
+
+.contact-post {
+    margin-top: 6.25rem;
+    margin-left: 37.5rem;
+}
+
+.category-price {
+    margin-left: 37.5rem;
+    padding-top: 6.25rem;
+}
+
+.book-img {
+    margin-left: 14.063rem;
+    margin-top: -26.563rem;
+    width: 25%;
+}
+
+.category {
+    margin-left: 37.5rem;
+    padding-top: 11.875rem;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit-button {
+    margin-top: 1.563rem;
+    margin-left: 8.75rem;
+}
+
+.title {
+    text-align: center;
+}
+
+.auth-inner {
+    width: 28.125rem;
+    height: 25rem;
+    margin: auto;
+    font-weight: 4000;
+    margin-top: 6.25rem;
+    background: #ffffff;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
+    border-radius: 0.938rem;
+    transition: all .3s;
+}
+
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+}
+
+.link {
+    text-align: right;
+    font-weight: 400;
+    font-size: 0.75rem;
+}
+
+.links {
+    font-weight: 400;
+    font-size: 0.75rem;
+}
+
+.auth-inner1 {
+    width: 28.125rem;
+    height: 40.625rem;
+    margin: auto;
+    font-weight: 4000;
+    margin-bottom: 6.25rem;
+    margin-top: 6.25rem;
+    background: #ffffff;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
+    border-radius: 0.938rem;
+    transition: all .3s;
+}
+
+.terms {
+    font-weight: 400;
+    font-size: 0.688rem;
+}
+
+.auth-inner2 {
+    width: 28.125rem;
+    height: 18.75rem;
+    margin: auto;
+    font-weight: 4000;
+    margin-bottom: 6.25rem;
+    margin-top: 6.25rem;
+    background: #ffffff;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
+    border-radius: 15px;
+    transition: all .3s;
+}
+
+.auth-inner3 {
+    width: 28.125rem;
+    height: 31.25rem;
+    margin-left: 31.25rem;
+    margin-top: 6.25rem;
+    font-weight: 4000;
+    background: #ffffff;
+    box-shadow: 0px 0.875rem 5rem rgba(34, 35, 58, 0.2);
+    padding: 2.5rem 3.438rem 2.813rem 3.438rem;
+    border-radius: 15px;
+    transition: all .3s;
+}
+
+.test {
+    margin-left: 37.5rem;
+}
+
+.flex-container {
+    display: flex;
+    margin-top: 30px;
+    margin-left: 20px;
+    overflow: auto;
+    height: 74vh;
+    padding-right: 10px;
+    justify-content: center;
+}
+
+.child-1 {
+    margin-left: 20px;
+}
+
+img.free-post-image {
+    display: unset;
+    margin-left: unset;
+    margin-right: unset;
+    width: initial;
 }

@@ -4,17 +4,17 @@
  * Description: Component that iterates through all post components returned 
  *              from search and displayes them under search bar
  */
-
+import React from "react"
 import Post from "./Post"
 
-const PostPage = ({ searchResults }) => {
+const PostPage = ({ results }) => {
 
-    const results = searchResults.map(post => <Post key={post.id} post={post} />)
+    const mappedResults = results.map((post, index) => <Post key={index} post={post} />);
 
-    const content = results;
+    const content = mappedResults;
 
     return (
-        <main class="postPage">{content}</main>
+        <main className="postPage">{content}</main>
     )
 }
 export default PostPage
