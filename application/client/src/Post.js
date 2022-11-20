@@ -20,7 +20,10 @@ const Post = ({ post }) => {
                 <p className="card-text text-truncate">{post.description}</p>
                 <p className="card-text">Seller: {post.author}</p>
                 <p className="card-text">Price: ${post.price}</p>
-                <button className="btn btn-primary" onClick={ handleClick }>Details</button>
+                <div className="card-button-wrapper">
+                    <button className="btn btn-secondary" onClick={handleClick}>Details</button>
+                    <button className="btn btn-primary" onClick={handleClick}>Contact Seller</button>
+                </div>
             </div>
         </div>
     )

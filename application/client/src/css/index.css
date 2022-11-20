@@ -127,6 +127,10 @@ img{
     text-align: center;
 }
 
+.card-button-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
 
 
 .resultsInfo {
