@@ -39,12 +39,14 @@ const Upload = () => {
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Product Name:*</div>
+						<div className="upload-gap"/>
 						<input type="text" className="form-control upload-input" placeholder="Title" required/>
 					</div>
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Category:*</div>
-						<select className="category-select upload-input required">
+						<div className="upload-gap" />
+						<select className="category-select upload-select required">
 							<option>Category</option>
 							{setCategories()}
 						</select>
@@ -52,11 +54,13 @@ const Upload = () => {
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Price:*</div>
+						<div className="upload-gap" />
 						<input type="text" className="form-control upload-input" placeholder="0.00" required/>	
 					</div>
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Description:</div>
+						<div className="upload-gap" />
 						<textarea className="form-control upload-input" placeholder="Description..." />
 					</div>
 
