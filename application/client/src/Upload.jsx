@@ -75,7 +75,7 @@ const Upload = () => {
 						<input className="form-control upload-file" type="file" id="formFile" required/>
 					</div>
 
-					<button type="button" className="btn btn-primary upload-btn">Post</button>
+					<button type="submit" className="btn btn-primary upload-btn">Post</button>
 				</form>
 			</div>
 			<Footer />
