@@ -36,15 +36,17 @@ const Upload = () => {
 					</div>
 					<br />
 					<br />
-
 					<div className="input-group mb-3 upload-group">
-						<div className="text-left upload-text">Product Name:*</div>
+						<div className="upload-text"><span style={{ color: 'red' }} >*</span> Required fields</div>
+					</div>
+					<div className="input-group mb-3 upload-group">
+						<div className="text-left upload-text">Product Name:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap"/>
 						<input type="text" className="form-control upload-input" placeholder="Title" required/>
 					</div>
 
 					<div className="input-group mb-3 upload-group">
-						<div className="text-left upload-text">Category:*</div>
+						<div className="text-left upload-text">Category:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap" />
 						<select className="category-select upload-select required">
 							<option>Category</option>
@@ -53,7 +55,7 @@ const Upload = () => {
 					</div>
 
 					<div className="input-group mb-3 upload-group">
-						<div className="text-left upload-text">Price:*</div>
+						<div className="text-left upload-text">Price:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap" />
 						<input type="text" className="form-control upload-input" placeholder="0.00" required/>	
 					</div>
