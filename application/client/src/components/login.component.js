@@ -1,3 +1,9 @@
+/*Olimpia Aguillon 
+This is the Login page.
+Users are asked to provide their email address and password.
+Once these fields are provided they will be signed in.  
+*/
+
 import React, { Component } from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
@@ -13,17 +19,21 @@ export default class Login extends Component {
                             <div className="title">
                                 <h3>Sign In</h3> 
                             </div>
-                            <br></br>
-                            <label>Email address</label>
+                            <div className="required-fields">
+                                <p><small><span className="asterisk"> * </span> Required fields</small></p>
+                            </div>
+                            {/* This will ask users to enter their email address */}
+                            <label>Email address<span className="asterisk"> * </span></label>
                             <input 
-                                type="email"
+                                type="email" required
                                 className="form-control"
                                 placeholder="Enter email"
                             />
                             <br></br>
-                            <label>Password</label>
+                            {/* This will ask users to enter their password*/}
+                            <label>Password<span className="asterisk"> * </span></label>
                             <input 
-                                type="password"
+                                type="password" required
                                 className="form-control"
                                 placeholder="Enter password"
                             />
@@ -33,6 +43,8 @@ export default class Login extends Component {
                                 </button>
                             </div>
                             <br></br>
+                            {/* This will redirect users to either the sign up page if they dont have an account 
+                             or to the forgot password page if they forgot their password */}
                             <p className="links" >
                                 Don't have an account? <a href='/signup' >Sign up</a> &emsp;&emsp;&emsp;&emsp;&ensp;Forgot <a href='/password'>password?</a>
                             </p> 
