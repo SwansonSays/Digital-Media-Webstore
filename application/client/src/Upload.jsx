@@ -1,3 +1,8 @@
+/* 
+ * File: Upload.jsx
+ * Author: Robert Swanson
+ * Description: Page for uploading a file to webapp
+ */
 import React from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";

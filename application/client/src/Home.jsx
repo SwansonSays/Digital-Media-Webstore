@@ -1,3 +1,8 @@
+/* 
+ * File: Home.jsx
+ * Author: Robert Swanson
+ * Description: Home page with description of wesite and displays recent posts
+ */
 import NavBar from "./NavBar";
 import PostPage from "./PostPage";
 import Footer from "./Footer";

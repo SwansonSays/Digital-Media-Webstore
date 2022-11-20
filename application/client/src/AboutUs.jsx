@@ -1,3 +1,8 @@
+/* 
+ * File: AboutUs.jsx
+ * Author: Robert Swanson
+ * Description: About us page to display all contributors to this project
+ */
 import React from "react";
 import NavBar from './NavBar';
 import { Link } from "react-router-dom";

@@ -1,7 +1,7 @@
 /* 
  * File: Post.js
  * Author: Robert Swanson
- * Description: Component for individual posts to be displayed
+ * Description: Component for individual posts to be displayed using bootstrap cards
  */
 import { useNavigate } from "react-router-dom";
 

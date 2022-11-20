@@ -1,7 +1,9 @@
 /* 
  * File: NavBar.js
  * Author: Robert Swanson
- * Description: NavBar for webapp
+ * Description: NavBar for webapp with search functionality and links to About Us, Post,
+ *              Dashboard, Sign in, and register. And contains disclaimer that this is student
+ *              project
  */
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect,useState } from 'react';

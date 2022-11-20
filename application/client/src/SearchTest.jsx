@@ -1,7 +1,7 @@
 /* 
  * File: SearchTest.js
  * Author: Robert Swanson
- * Description: Test page for verticle prototype
+ * Description: Test page for search functinality during verticle prototype
  */
 
 import React from "react";

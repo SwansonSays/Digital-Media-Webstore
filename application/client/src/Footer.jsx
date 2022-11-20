@@ -1,3 +1,8 @@
+/* 
+ * File: Footer.jsx
+ * Author: Robert Swanson
+ * Description: Footer for website with links to Contact Us and our Policies
+ */
 import React from "react";
 import { Link } from "react-router-dom";
 
