@@ -26,8 +26,9 @@ export default class Login extends Component {
                             <label>Email address<span className="asterisk"> * </span></label>
                             <input 
                                 type="email" required
+                                pattern=".+@mail.sfsu.edu"
                                 className="form-control"
-                                placeholder="Enter email"
+                                placeholder="Enter sfsu email"
                             />
                             <br></br>
                             {/* This will ask users to enter their password*/}
