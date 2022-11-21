@@ -1,7 +1,7 @@
 /* 
  * File: Post.js
  * Author: Robert Swanson
- * Description: Component for individual posts to be displayed
+ * Description: Component for individual posts to be displayed using bootstrap cards
  */
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,10 @@ const Post = ({ post }) => {
                 <p className="card-text text-truncate">{post.description}</p>
                 <p className="card-text">Seller: {post.author}</p>
                 <p className="card-text">Price: ${post.price}</p>
-                <button className="btn btn-primary" onClick={ handleClick }>Details</button>
+                <div className="card-button-wrapper">
+                    <button className="btn btn-secondary" onClick={handleClick}>Details</button>
+                    <button className="btn btn-primary" onClick={handleClick}>Contact Seller</button>
+                </div>
             </div>
         </div>
     )
