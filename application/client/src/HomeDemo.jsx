@@ -1,3 +1,8 @@
+/* 
+ * File: HomeDemo.jsx
+ * Author: Robert Swanson
+ * Description: Used for horizontal prototype to showcase each page on website
+ */
 import React from "react";
 import { Link } from "react-router-dom"
 

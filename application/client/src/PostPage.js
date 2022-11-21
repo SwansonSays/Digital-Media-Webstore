@@ -1,8 +1,8 @@
 /* 
  * File: PostPage.js
  * Author: Robert Swanson
- * Description: Component that iterates through all post components returned 
- *              from search and displayes them under search bar
+ * Description: Component that iterates through all post components given to it
+ *              and displayes them in a grid on page
  */
 import React from "react"
 import Post from "./Post"

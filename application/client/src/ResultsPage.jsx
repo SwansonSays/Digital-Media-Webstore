@@ -1,7 +1,7 @@
 /* 
- * File: SearchTest.js
+ * File: ResultsPage.jsx
  * Author: Robert Swanson
- * Description: 
+ * Description: Displays search results, number of results, and sorting functinality for results
  */
 
 import React from "react";
