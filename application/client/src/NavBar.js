@@ -1,7 +1,9 @@
 /* 
  * File: NavBar.js
  * Author: Robert Swanson
- * Description: NavBar for webapp
+ * Description: NavBar for webapp with search functionality and links to About Us, Post,
+ *              Dashboard, Sign in, and register. And contains disclaimer that this is student
+ *              project
  */
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect,useState } from 'react';
@@ -96,27 +98,32 @@ const NavBar = () => {
 
     return (
         <nav className="navbar py-0 bg-white border border-dark fixed-top">
-            <h1 href="/"><Link className="brand" to="/">Media Store</Link></h1>
-            <Link className="btn btn-lg btn-block nav-link bg-white postButton" to="/AboutUs">About Us</Link>
-            <form className="searchForm" onSubmit={handleSubmit}>
-                <select className="dropdown" onChange={handleChange}>
-                    <option value="all">All</option>
-                    {/*setCategories()*/}
-                    {renderRemainingOptions()}
-                </select>
-                <input
-                    type="text"
-                    id="search"
-                    placeholder="Search..."
-                    name="searchData"
-                    className="searchBar"
-                />
-                <button className="searchButton">Search</button>
-            </form>
-            <Link className="btn btn-lg btn-block nav-link bg-white postButton" to="/Upload">Post</Link>
-            <Link className="btn btn-lg btn-block nav-link bg-white postButton" to="/">DashBoard</Link>
-            <Link className="btn btn-lg btn-block nav-link bg-white logInButton" to="/">Sign in</Link>
-            <Link className="btn btn-lg btn-block nav-link bg-white logInButton" to="/">Register</Link>
+            <div className="nav-disclaimer">
+                <p>SFSU Software Engineering Project CSC 648-848, Fall 2022. For Demonstration Only</p>
+            </div>
+            <div className="nav-content">
+                <h1 href="/"><Link className="brand nav-brand" to="/">Media Store</Link></h1>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
+                <form className="searchForm" onSubmit={handleSubmit}>
+                    <select className="dropdown" onChange={handleChange}>
+                        <option value="all">All</option>
+                        {/*setCategories()*/}
+                        {renderRemainingOptions()}
+                    </select>
+                    <input
+                        type="text"
+                        id="search"
+                        placeholder="Search..."
+                        name="searchData"
+                        className="searchBar"
+                    />
+                    <button className="searchButton">Search</button>
+                </form>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Upload">Post</Link>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">DashBoard</Link>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">Sign in</Link>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">Register</Link>
+            </div>
         </nav>
     )
 }

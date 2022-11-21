@@ -1,7 +1,7 @@
 /* 
  * File: SearchBar.js
  * Author: Robert Swanson
- * Description: Search bar component with category pulldown menu
+ * Description: Search bar component with category pulldown menu currently not in use
  */
 
 import React, { useEffect, useState } from 'react';
