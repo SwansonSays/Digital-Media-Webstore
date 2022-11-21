@@ -50,7 +50,7 @@ export default class Signup extends Component {
                             <label>Email address<span className="asterisk"> * </span></label>
                             <input
                                 type= "email" required
-                                pattern=".+@mail.sfsu.edu"
+                                pattern=".+@sfsu.edu"
                                 className="form-control"
                                 placeholder="Enter sfsu email"
                             />
