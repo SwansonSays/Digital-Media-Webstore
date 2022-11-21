@@ -121,8 +121,8 @@ const NavBar = () => {
                 </form>
                 <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Upload">Post</Link>
                 <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">DashBoard</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">Sign in</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">Register</Link>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">Login</Link>
+                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">Signup</Link>
             </div>
         </nav>
     )
