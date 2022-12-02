@@ -54,6 +54,25 @@ const NavBar = () => {
         }
         setCategories();
     }, [])   
+
+    function checkLogin() {
+        sessionStorage.setItem("loggedIn", "true");
+        //sessionStorage.removeItem("loggedIn");
+        var loggedIn = sessionStorage.getItem("loggedIn");
+        if (loggedIn === "true") {
+            return  <div className="nav-right">
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Upload">Post</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/">DashBoard</Link>
+                    </div>
+        } else {
+            return  <div className="nav-right">
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Upload">Post</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Login">Sign in</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Signup">Register</Link>
+                    </div>;
+        }
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -102,8 +121,10 @@ const NavBar = () => {
                 <p>SFSU Software Engineering Project CSC 648-848, Fall 2022. For Demonstration Only</p>
             </div>
             <div className="nav-content">
-                <h1 href="/"><Link className="brand nav-brand" to="/">Media Store</Link></h1>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
+                <div className="nav-left">
+                    <h1 href="/"><Link className="brand nav-brand" to="/">Media Store</Link></h1>
+                    <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
+                </div>
                 <form className="searchForm" onSubmit={handleSubmit}>
                     <select className="dropdown" onChange={handleChange}>
                         <option value="all">All</option>
@@ -119,10 +140,7 @@ const NavBar = () => {
                     />
                     <button className="searchButton">Search</button>
                 </form>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Upload">Post</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">DashBoard</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Login">Sign in</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Signup">Register</Link>
+                { checkLogin() }
             </div>
         </nav>
     )
