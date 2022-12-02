@@ -56,9 +56,10 @@ const NavBar = () => {
     }, [])   
 
     function checkLogin() {
-        sessionStorage.setItem("loggedIn", "true");
-        //sessionStorage.removeItem("loggedIn");
+        //sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.removeItem("loggedIn");
         var loggedIn = sessionStorage.getItem("loggedIn");
+
         if (loggedIn === "true") {
             return  <div className="nav-right">
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Upload">Post</Link>
