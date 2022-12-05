@@ -1,24 +1,24 @@
 '''
 Created on : Oct 27,2022
-Author : Himani , Donnovan 
+Author : Himani , Donnovan
 Purpose : backend apis for search results and populating home page
 '''
 
-import base64
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
-from base64 import b64encode
 from flask_cors import CORS
 import json
 from flask import Response
+from user import user
 
 
 app = Flask(__name__)
+app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
+app.config['MYSQL_DATABASE_USER'] = 'db_admin'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
 app.config['MYSQL_DATABASE_DB'] = 'mediastore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
@@ -56,14 +56,14 @@ def setCategory():
         print("j == ", j)
         cursor.close()
         conn.close()
-        return Response(json.dumps(cat_array),  mimetype='application/json') 
+        return Response(json.dumps(cat_array),  mimetype='application/json')
 
 #endpoint for populating items in home page
 @app.route('/home', methods=['GET'])
 def home():
     if request.method == 'GET':
         conn = mysql.connect()
-        cursor = conn.cursor()        
+        cursor = conn.cursor()
         cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item LIMIT 8")
         conn.commit()
         top_eight = cursor.fetchall()
@@ -104,12 +104,12 @@ def search():
             jsn=[]
             for tuple_item in data:
                 jsn.append({"title": tuple_item[0], "description": tuple_item[1], "author": tuple_item[2], "path": str(tuple_item[3]), "price": tuple_item[4], "category": tuple_item[5] })
-            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]     
+            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]
             print(jsn)
             cursor.close()
             conn.close()
-            return Response(json.dumps(jsn),  mimetype='application/json')  
-        
+            return Response(json.dumps(jsn),  mimetype='application/json')
+
         elif(book['Category'] == 'all' and book['book']!=""):
             cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item WHERE item_title LIKE %s ", ( '%' + book['book'] + '%'))
             conn.commit()
@@ -119,12 +119,12 @@ def search():
             jsn=[]
             for tuple_item in data:
                 jsn.append({"title": tuple_item[0], "description": tuple_item[1], "author": tuple_item[2], "path": str(tuple_item[3]), "price": tuple_item[4], "category": tuple_item[5] })
-            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]     
+            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]
             print(jsn)
             cursor.close()
-            conn.close()            
-            return Response(json.dumps(jsn),  mimetype='application/json')  
-       
+            conn.close()
+            return Response(json.dumps(jsn),  mimetype='application/json')
+
         elif (book['Category'] != 'all' and book['book']==""):
             cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item WHERE item_category = %s", (book['Category']))
             conn.commit()
@@ -134,13 +134,13 @@ def search():
             jsn=[]
             for tuple_item in data:
                 jsn.append({"title": tuple_item[0], "description": tuple_item[1], "author": tuple_item[2], "path": str(tuple_item[3]), "price": tuple_item[4], "category": tuple_item[5] })
-            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]     
+            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]
             print(jsn)
             cursor.close()
-            conn.close()            
-            return Response(json.dumps(jsn),  mimetype='application/json')  
+            conn.close()
+            return Response(json.dumps(jsn),  mimetype='application/json')
 
-        
+
         elif(book['Category'] != 'all'):
             cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item WHERE item_category = %s AND item_title LIKE %s ", (book['Category'], '%' + book['book'] + '%'))
             conn.commit()
@@ -150,12 +150,12 @@ def search():
             jsn=[]
             for tuple_item in data:
                 jsn.append({"title": tuple_item[0], "description": tuple_item[1], "author": tuple_item[2], "path": str(tuple_item[3]), "price": tuple_item[4], "category": tuple_item[5] })
-            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]     
+            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]
             print(jsn)
             cursor.close()
             conn.close()
-            return Response(json.dumps(jsn),  mimetype='application/json')  
-        
+            return Response(json.dumps(jsn),  mimetype='application/json')
+
 
 
 
@@ -167,13 +167,16 @@ def search():
         jsn=[]
         for tuple_item in data:
                 jsn.append({"title": tuple_item[0], "description": tuple_item[1], "author": tuple_item[2], "path": str(tuple_item[3]), "price": tuple_item[4], "category": tuple_item[5] })
-            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]     
-        print(jsn)    
+            #jsn = [ {"title": data[0][1], "description": data[0][2], "author": data[0][3], "path": str(data[0][4]), "price": data[0][5], "category": data[0][6] } ]
+        print(jsn)
         cursor.close()
-        conn.close()        
-      
+        conn.close()
+
         return Response(json.dumps(jsn),  mimetype='application/json')
 
+
 if __name__=='__main__':
-    app.debug = True 
+    app.debug = True
     app.run()
+
+
