@@ -7,18 +7,50 @@ import React from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 const Upload = () => {
 	const navigate = useNavigate();
+	const [category, setCategory] = useState("Category");
+	const [productName, setProductName] = useState("");
+	const [price, setPrice] = useState("");
+	const [description, setDescription] = useState("");
 
 	function handleSubmit(event) {
 		event.preventDefault();
 		console.log("Submit");
+		//If user is not logged in, save all text fields to session storage
 		if (sessionStorage.getItem("loggedIn") !== "true") {
+			sessionStorage.setItem("uploadProductName", productName);
+			sessionStorage.setItem("uploadCategory", category);
+			sessionStorage.setItem("uploadPrice", price);
+			sessionStorage.setItem("uploadDescription", description);
+			sessionStorage.setItem("route", "/Upload");
+
 			window.alert("Must be logged in to post.");
 			navigate('/Login');
         }
 	}
+
+	useEffect(() => {
+		//If text fields are saved, load the values on render
+		if (sessionStorage.getItem("route") === "/Upload" && sessionStorage.getItem("loggedIn") === "true") {
+			setProductName(sessionStorage.getItem("uploadProductName"));
+			setCategory(sessionStorage.getItem("uploadCategory"));
+			setPrice(sessionStorage.getItem("uploadPrice"));
+			setDescription(sessionStorage.getItem("uploadDescription"));
+			
+			sessionStorage.removeItem("uploadProductName");
+			sessionStorage.removeItem("uploadCategory");
+			sessionStorage.removeItem("uploadPrice");
+			sessionStorage.removeItem("uploadDescription");
+			sessionStorage.removeItem("route");
+        }
+	}, [])
+
+	function handleChange(event) {
+		setCategory(event.target.value);
+    }
 
 	function setCategories() {
 		//Categories return from DB goes here
@@ -53,14 +85,21 @@ const Upload = () => {
 					</div>
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Product Name:<span style={{ color: 'red' }} >*</span></div>
-						<div className="upload-gap"/>
-						<input type="text" className="form-control upload-input" placeholder="Title" required/>
+						<div className="upload-gap" />
+						<input
+							type="text"
+							className="form-control upload-input"
+							placeholder="Title"
+							name="productName"
+							value={productName}
+							onChange={(e) => setProductName(e.target.value)}
+							required />
 					</div>
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Category:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap" />
-						<select className="category-select upload-select required">
+						<select className="category-select upload-select required" onChange={handleChange} value={ category }>
 							<option>Category</option>
 							{setCategories()}
 						</select>
@@ -69,13 +108,24 @@ const Upload = () => {
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Price:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap" />
-						<input type="text" className="form-control upload-input" placeholder="0.00" required/>	
+						<input
+							type="text"
+							className="form-control upload-input"
+							placeholder="0.00" name="price"
+							value={price}
+							onChange={(e) => setPrice(e.target.value)}
+							required />	
 					</div>
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Description:</div>
 						<div className="upload-gap" />
-						<textarea className="form-control upload-input" placeholder="Description..." />
+						<textarea
+							className="form-control upload-input"
+							placeholder="Description..."
+							name="description"
+							value={description}
+							onChange={(e) => setDescription(e.target.value)} />
 					</div>
 
 					<div className="input-group mb-3 upload-group">
