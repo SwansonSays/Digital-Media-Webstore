@@ -1,3 +1,8 @@
+'''
+Created on : Oct 27,2022
+Author : Himani , Donnovan 
+Purpose : backend apis for search results and populating home page
+'''
 
 import base64
 from flask import Flask, render_template, request, redirect
