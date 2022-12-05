@@ -23,7 +23,9 @@ export default class FreePost extends Component {
                         <h5>Textbook by: Byeong Kil Lee, Charles H Roth, and Lizy John</h5>
                     {/* This displays the category of the item and the download button*/}
                         <p>Category: Textbook <br></br> Price: Free for Download </p>
+                        <a href="Verilogbook.png" download="Verilogbook">
                         <button type="button" className="btn btn-primary btn-lg">Download</button> 
+                        </a>
                     </div>
                 </article>
                 {/* <div className='container'>
