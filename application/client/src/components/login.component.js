@@ -29,7 +29,8 @@ const Login = () => {
             .then(result => {
                 if (result === "OK") {
                     window.alert("Login was successful");
-                    localStorage.setItem("email", email);
+                    sessionStorage.setItem("email", email);
+                    sessionStorage.setItem("loggedIn", "true");
                     navigate("/Home");
                 } else {
                     window.alert("Wrong credentials")

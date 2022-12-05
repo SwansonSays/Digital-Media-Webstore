@@ -6,11 +6,18 @@
 import React from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
+	const navigate = useNavigate();
+
 	function handleSubmit(event) {
 		event.preventDefault();
 		console.log("Submit");
+		if (sessionStorage.getItem("loggedIn") !== "true") {
+			window.alert("Must be logged in to post.");
+			navigate('/Login');
+        }
 	}
 
 	function setCategories() {

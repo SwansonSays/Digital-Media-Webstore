@@ -64,13 +64,40 @@ img{
 }
 
 .nav-button {
-    flex: 0 9%;
+    flex: 0 50%;
+    justify-self: center;
+}
+
+.nav-left {
+    display: flex;
+    flex: 0 30%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    flex: 0 30%;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav-loggedin {
+    margin: auto;
+    flex: 0 50%;
+}
+
+.nav-loggedout {
+    margin: auto;
+    flex: 0 33%;
 }
 
 .nav-brand {
     padding-left: 2.5rem;
     color: #231161;
-    flex: 0 15%;
+    flex: 0 50%;
+    text-align: center;
 }
 .nav-disclaimer{
     padding-top: .5rem;
