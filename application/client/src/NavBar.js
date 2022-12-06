@@ -57,7 +57,7 @@ const NavBar = () => {
 
     function checkLogin() {
         //sessionStorage.setItem("loggedIn", "true");
-        sessionStorage.removeItem("loggedIn");
+        //sessionStorage.removeItem("loggedIn");
         var loggedIn = sessionStorage.getItem("loggedIn");
 
         if (loggedIn === "true") {
@@ -123,7 +123,7 @@ const NavBar = () => {
             </div>
             <div className="nav-content">
                 <div className="nav-left">
-                    <h1 href="/"><Link className="brand nav-brand" to="/">Media Store</Link></h1>
+                    <h1 href="/"><Link className="brand nav-brand" to="/">Media&nbsp;Store</Link></h1>
                     <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
                 </div>
                 <form className="searchForm" onSubmit={handleSubmit}>
