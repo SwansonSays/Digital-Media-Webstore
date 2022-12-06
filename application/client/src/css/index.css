@@ -74,6 +74,7 @@ img{
     width: 100%;
     align-items: center;
     justify-content: center;
+    margin: auto;
 }
 
 .nav-right {
@@ -94,13 +95,12 @@ img{
 }
 
 .nav-brand {
-    padding-left: 2.5rem;
     color: #231161;
     flex: 0 50%;
     text-align: center;
 }
 .nav-disclaimer{
-    padding-top: .5rem;
+    height: 1.5rem;
 }
 
 /* Styling for Footer */
