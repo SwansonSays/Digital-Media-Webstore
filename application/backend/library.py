@@ -5,12 +5,10 @@ Purpose : backend apis for search results and populating home page
 '''
 
 import base64, os
-from flask import Flask, render_template, request, redirect, abort
+from flask import Flask,  request, session
 from flaskext.mysql import MySQL
-from base64 import b64encode
 from flask_cors import CORS
 import hashlib
-import MySQLdb.cursors
 import json
 from flask import Response
 from werkzeug.utils import secure_filename
@@ -25,6 +23,9 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
 app.config['MYSQL_DATABASE_DB'] = 'mediastore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
+UPLOAD_FOLDER = 'static'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 mysql = MySQL()
 
@@ -35,11 +36,6 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-
-
-@app.route('/donnovan')
-def donnovan():
-    return render_template('donnovan.html')
 
 @app.route('/login', methods=['POST'])
 def process_json():
@@ -105,6 +101,7 @@ def contactSeller():
             return Response(json.dumps(resp), mimetype='application/json')
 
 
+
 @app.route('/post', methods=['POST'])
 def post():
     if request.method == 'POST':
@@ -113,28 +110,32 @@ def post():
         cursor = conn.cursor()
 
         insert_statement = (
-            "INSERT INTO item (item_title, item_blob, item_categorie, item_description) "
-            "VALUES (%s, %s, %s, %s)"
+            "INSERT INTO item (item_title, item_categorie, item_description) "
+            "VALUES (%s, %s, %s)"
         )
 
-        data = (post_request['name'], post_request['file'], post_request['category'], post_request['description'])
-
-
-        uploaded_file = request.files['file']
-        filename = secure_filename(uploaded_file.filename)
-        print("filename ",filename)
-        if filename != '':
-            file_ext = os.path.splitext(filename)[1]
-            if file_ext not in app.config['UPLOAD_EXTENSIONS']:
-                abort(400)
-            uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-
+        data = (post_request['name'], post_request['category'], post_request['description'])
 
         cursor.execute(insert_statement, data)
         conn.commit()
         print("Insert completed")
         resp = {"Response" : "200 OK"}
         return Response(json.dumps(resp), mimetype='application/json')
+
+@app.route('/savefile', methods=['POST'])
+def post_1():
+    target=os.path.join(UPLOAD_FOLDER,'media')
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    print("welcome to upload`")
+    file = request.files['file'] 
+    filename = secure_filename(file.filename)
+    destination="/".join([target, filename])
+    file.save(destination)
+    session['uploadFilePath']=destination
+    print("File saved successfully")
+    resp = {"Response" : "200 OK"}
+    return Response(json.dumps(resp), mimetype='application/json')
 
 
 # endpoint for search dropdown
