@@ -19,7 +19,7 @@ def login():
 
     email = json["email"]
     password = json["password"]
-    callToSQL = f'SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest()}"'
+    callToSQL = f'SELECT * FROM user_records WHERE user_email = "{email}" AND user_password = "{hashlib.md5(password.encode()).hexdigest()}"'
 
     cursor.execute(callToSQL)
     account = cursor.fetchone()
@@ -47,7 +47,7 @@ def signup():
         first_name = json["firstname"]
         last_name = json["lastname"]
         callToSQL = f'INSERT INTO user_records (user_type,user_username,user_first_name,user_last_name,' \
-                    f'email,password) VALUES ("registered_user","{username}","{first_name}","{last_name}",' \
+                    f'user_email,user_password) VALUES ("registered_user","{username}","{first_name}","{last_name}",' \
                     f'"{email}","{hashlib.md5(password.encode()).hexdigest()}");'
         cursor.execute(callToSQL)
         conn.commit()
