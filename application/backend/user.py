@@ -6,6 +6,7 @@ Purpose : backend apis for basic user needs (sign up, login, dashhboard)
 
 from flask import Blueprint, request
 import hashlib
+import json
 
 user = Blueprint('user', __name__)
 
@@ -15,10 +16,10 @@ def login():
     from library import mysql
     conn = mysql.connect()
     cursor = conn.cursor()
-    json = request.json
+    data = request.json
 
-    email = json["email"]
-    password = json["password"]
+    email = data["email"]
+    password = data["password"]
     callToSQL = f'SELECT * FROM user_records WHERE user_email = "{email}" AND user_password = "{hashlib.md5(password.encode()).hexdigest()}"'
 
     cursor.execute(callToSQL)
@@ -39,13 +40,13 @@ def signup():
         from library import mysql
         conn = mysql.connect()
         cursor = conn.cursor()
-        json = request.json
+        data = request.json
 
-        email = json["email"]
-        password = json["password"]
-        username = json["id"]
-        first_name = json["firstname"]
-        last_name = json["lastname"]
+        email = data["email"]
+        password = data["password"]
+        username = data["id"]
+        first_name = data["firstname"]
+        last_name = data["lastname"]
         callToSQL = f'INSERT INTO user_records (user_type,user_username,user_first_name,user_last_name,' \
                     f'user_email,user_password) VALUES ("registered_user","{username}","{first_name}","{last_name}",' \
                     f'"{email}","{hashlib.md5(password.encode()).hexdigest()}");'
@@ -69,8 +70,8 @@ def dashboard_profile():
         from library import mysql
         conn = mysql.connect()
         cursor = conn.cursor()
-        json = request.json
-        email = json["email"]
+        data = request.json
+        email = data["email"]
 
         callToSQL = f'SELECT user_first_name, user_last_name FROM user_records WHERE user_email = "{email}"'
         cursor.execute(callToSQL)
