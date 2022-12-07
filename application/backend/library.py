@@ -1,6 +1,6 @@
 '''
 Created on : Oct 27,2022
-Author : Himani , Donnovan 
+Author : Himani , Donnovan
 Purpose : backend apis for search results and populating home page
 '''
 
@@ -15,6 +15,7 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
+app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
@@ -31,7 +32,6 @@ mysql = MySQL()
 
 # intialize the extension
 mysql.init_app(app)
-
 
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -274,6 +274,8 @@ def search():
 
         return Response(json.dumps(jsn),  mimetype='application/json')
 
+
 if __name__=='__main__':
-    app.debug = True 
+    app.debug = True
     app.run()
+
