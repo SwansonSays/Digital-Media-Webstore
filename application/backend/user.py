@@ -13,9 +13,9 @@ user = Blueprint('user', __name__)
 @user.route('/login', methods=['POST'])
 def login():
     from library import mysql
-    json = request.json
     conn = mysql.connect()
     cursor = conn.cursor()
+    json = request.json
 
     email = json["email"]
     password = json["password"]
@@ -28,18 +28,18 @@ def login():
     conn.close()
 
     if account:
-        return 'OK'
+        return 'success'
     else:
-        return 'Not OK'
+        return 'failure'
 
 #endpoint for Sgin Up page
 @user.route('/signup', methods=['POST'])
 def signup():
-    from library import mysql
     try:
-        json = request.json
+        from library import mysql
         conn = mysql.connect()
         cursor = conn.cursor()
+        json = request.json
 
         email = json["email"]
         password = json["password"]
@@ -51,11 +51,37 @@ def signup():
                     f'"{email}","{hashlib.md5(password.encode()).hexdigest()}");'
         cursor.execute(callToSQL)
         conn.commit()
-        return 'OK'
+        return 'success'
 
     except conn.Error as error:
         #print("Failed to update record to database rollback: {}".format(error))
-        return 'Not OK'
+        return 'failure'
+
+    finally:
+        # closing database connection.
+        cursor.close()
+        conn.close()
+
+#endpoint for profile on dashboard
+@user.route('/dashboard_profile', methods=['POST'])
+def dashboard_profile():
+    try:
+        from library import mysql
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        json = request.json
+        email = json["email"]
+
+        callToSQL = f'SELECT user_first_name, user_last_name FROM user_records WHERE user_email = "{email}"'
+        cursor.execute(callToSQL)
+        values = cursor.fetchall()
+        headers = cursor.description
+        dict_to_json = dict(zip((headers[0][0], headers[1][0]), (values[0][0], values[0][1])))
+
+        return json.dumps(dict_to_json)
+
+    except:
+        return 'failure'
 
     finally:
         # closing database connection.
