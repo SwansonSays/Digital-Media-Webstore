@@ -34,7 +34,7 @@ const Signup = () => {
             body: JSON.stringify({firstname, lastname, id, email, password})
         }).then(response => response.text())
             .then(result => {
-                if (result === "OK") {
+                if (result === "success") {
                     window.alert("Registration was successful");
                     localStorage.setItem("firstname", firstname, "lastname",lastname, "id",id, "email", email);
                     navigate("/Home");

@@ -30,48 +30,13 @@ mysql = MySQL()
 # intialize the extension
 mysql.init_app(app)
 
-
 conn = mysql.connect()
 cursor = conn.cursor()
-
 
 
 @app.route('/donnovan')
 def donnovan():
     return render_template('donnovan.html')
-
-@app.route('/login', methods=['POST'])
-def process_json():
-    json = request.json
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    email = json["email"]
-    password = json["password"]
-    callToSQL = f'SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest()}"'
-    cursor.execute(callToSQL)
-    account = cursor.fetchone()
-    if account:
-        return 'OK'
-    else:
-        return 'Not OK'
-
-@app.route('/register', methods=['POST'])
-def process_json_reg():
-    json = request.json
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    email = json["email"]
-    password = json["password"]
-    username = json["student_id"]
-    first_name = json["first_name"]
-    last_name = json["last_name"]
-    callToSQL = f'INSERT INTO user_records (user_type,user_username,user_first_name,user_last_name,email,password) VALUES ("registered_user","{username}","{first_name}","{last_name}","{email}","{hashlib.md5(password.encode()).hexdigest()}")'
-    cursor.execute(callToSQL)
-    state = cursor.fetchone()
-    if state:
-        return 'OK'
-    else:
-        return 'Not OK'
 
 # endpoint for search dropdown
 @app.route('/categories', methods=['GET', 'POST'])

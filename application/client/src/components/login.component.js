@@ -27,7 +27,7 @@ const Login = () => {
             body: JSON.stringify({email, password})
         }).then(response => response.text())
             .then(result => {
-                if (result === "OK") {
+                if (result === "success") {
                     window.alert("Login was successful");
                     sessionStorage.setItem("email", email);
                     sessionStorage.setItem("loggedIn", "true");
