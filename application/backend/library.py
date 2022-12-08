@@ -4,14 +4,14 @@ Author : Himani , Donnovan
 Purpose : backend apis for search results and populating home page
 '''
 
-import base64, os
+import os
 from flask import Flask,  request, session
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-import hashlib
 import json
 from flask import Response
 from werkzeug.utils import secure_filename
+from user import user
 
 
 app = Flask(__name__)
@@ -36,39 +36,6 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-
-@app.route('/login', methods=['POST'])
-def process_json():
-    json = request.json
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    email = json["email"]
-    password = json["password"]
-    callToSQL = f'SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest()}"'
-    cursor.execute(callToSQL)
-    account = cursor.fetchone()
-    if account:
-        return 'OK'
-    else:
-        return 'Not OK'
-
-@app.route('/register', methods=['POST'])
-def process_json_reg():
-    json = request.json
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    email = json["email"]
-    password = json["password"]
-    username = json["student_id"]
-    first_name = json["first_name"]
-    last_name = json["last_name"]
-    callToSQL = f'INSERT INTO user_records (user_type,user_username,user_first_name,user_last_name,email,password) VALUES ("registered_user","{username}","{first_name}","{last_name}","{email}","{hashlib.md5(password.encode()).hexdigest()}")'
-    cursor.execute(callToSQL)
-    state = cursor.fetchone()
-    if state:
-        return 'OK'
-    else:
-        return 'Not OK'
 
 @app.route('/contact', methods=['POST'])
 def contactSeller():
