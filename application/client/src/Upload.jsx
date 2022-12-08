@@ -1,6 +1,6 @@
 /* 
  * File: Upload.jsx
- * Author: Robert Swanson
+ * Author: Robert Swanson, Donnovan Jiles
  * Description: Page for uploading a file to webapp
  */
 import React from "react";
@@ -10,26 +10,33 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 const Upload = () => {
-	const navigate = useNavigate();
-	const [category, setCategory] = useState("Category");
-	const [productName, setProductName] = useState("");
-	const [price, setPrice] = useState("");
-	const [description, setDescription] = useState("");
 
-	function handleSubmit(event) {
+	let uploadInput;
+
+	async function handleUploadImage(event) {
 		event.preventDefault();
-		console.log("Submit");
-		//If user is not logged in, save all text fields to session storage
-		if (sessionStorage.getItem("loggedIn") !== "true") {
-			sessionStorage.setItem("uploadProductName", productName);
-			sessionStorage.setItem("uploadCategory", category);
-			sessionStorage.setItem("uploadPrice", price);
-			sessionStorage.setItem("uploadDescription", description);
-			sessionStorage.setItem("route", "/Upload");
 
-			window.alert("Must be logged in to post.");
-			navigate('/Login');
-        }
+		const file_data = new FormData();
+		const upload_data = JSON.stringify({"name" : event.target[0].value, "category" : event.target[1].value, 
+						"price" : event.target[2].value, "description" : event.target[3].value
+						})
+		file_data.append('file', uploadInput.files[0]);
+
+		try {
+			const response = await fetch('http://localhost:5000/post', {
+				method : "POST",
+				body : upload_data,
+				headers: { 'Content-Type': 'application/json' }
+			})
+		} catch (error){
+			console.error(error)
+		}
+
+
+		fetch('http://localhost:5000/savefile', {
+		method: 'POST',
+		body: file_data
+		})
 	}
 
 	useEffect(() => {
@@ -73,7 +80,7 @@ const Upload = () => {
 			<NavBar ></NavBar>
 			<div className="upload-wrapper">
 
-				<form className="upload-form container" onSubmit={handleSubmit}>
+				<form className="upload-form container" onSubmit={handleUploadImage}>
 					<br />
 					<div className="title">
 						<h3>Post an item</h3>
@@ -129,7 +136,7 @@ const Upload = () => {
 					</div>
 
 					<div className="input-group mb-3 upload-group">
-						<input className="form-control upload-file" type="file" id="formFile" required/>
+						<input className="form-control upload-file" ref={(ref) => { uploadInput = ref; }} type="file" name="file" required/>
 					</div>
 
 					<button type="submit" className="btn btn-primary upload-btn">Post</button>

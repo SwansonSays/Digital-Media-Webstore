@@ -4,13 +4,13 @@ Author : Himani , Donnovan
 Purpose : backend apis for search results and populating home page
 '''
 
-from flask import Flask, render_template, request
+import os
+from flask import Flask,  request, session
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-import hashlib
-import MySQLdb.cursors
 import json
 from flask import Response
+from werkzeug.utils import secure_filename
 from user import user
 
 
@@ -24,6 +24,9 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
 app.config['MYSQL_DATABASE_DB'] = 'mediastore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
+UPLOAD_FOLDER = 'static'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 mysql = MySQL()
 
@@ -34,9 +37,73 @@ conn = mysql.connect()
 cursor = conn.cursor()
 
 
-@app.route('/donnovan')
-def donnovan():
-    return render_template('donnovan.html')
+@app.route('/contact', methods=['POST'])
+def contactSeller():
+    if request.method == 'POST':
+        contact_request = request.get_json()
+        
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        user_id = cursor.execute("SELECT user_id from user_records where user_username = %s", contact_request['name'])
+
+        if user_id:
+
+            insert_statement = (
+                "INSERT INTO message(message_text, message_created, message_sender_user_id, message_recipient_user_id)"
+                "VALUES (%s, %s, %s, %s)"
+            )
+
+            data = (contact_request['message'], contact_request['date'], 2, user_id)
+
+            cursor.execute(insert_statement, data)
+
+            conn.commit()
+            print("Insert completed")
+            resp = {"Response" : "200 OK"}
+            return Response(json.dumps(resp), mimetype='application/json')
+        else:
+            print("Bad Request")
+            resp = {"Response" : "400 Bad Request"}
+            return Response(json.dumps(resp), mimetype='application/json')
+
+
+
+@app.route('/post', methods=['POST'])
+def post():
+    if request.method == 'POST':
+        post_request = request.get_json()
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        insert_statement = (
+            "INSERT INTO item (item_title, item_categorie, item_description) "
+            "VALUES (%s, %s, %s)"
+        )
+
+        data = (post_request['name'], post_request['category'], post_request['description'])
+
+        cursor.execute(insert_statement, data)
+        conn.commit()
+        print("Insert completed")
+        resp = {"Response" : "200 OK"}
+        return Response(json.dumps(resp), mimetype='application/json')
+
+@app.route('/savefile', methods=['POST'])
+def post_1():
+    target=os.path.join(UPLOAD_FOLDER,'media')
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    print("welcome to upload`")
+    file = request.files['file'] 
+    filename = secure_filename(file.filename)
+    destination="/".join([target, filename])
+    file.save(destination)
+    session['uploadFilePath']=destination
+    print("File saved successfully")
+    resp = {"Response" : "200 OK"}
+    return Response(json.dumps(resp), mimetype='application/json')
+
 
 # endpoint for search dropdown
 @app.route('/categories', methods=['GET', 'POST'])
