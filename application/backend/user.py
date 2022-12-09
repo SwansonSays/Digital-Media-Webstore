@@ -79,7 +79,7 @@ def profile():
         headers = cursor.description
         dict_to_json = dict(zip((headers[0][0], headers[1][0]), (values[0][0], values[0][1])))
 
-        return json.dumps(dict_to_json)
+        return dict_to_json
 
     except:
         return 'failure'
@@ -99,14 +99,17 @@ def posts():
         data = request.json
         email = data["email"]
 
-        callToSQL = f"""SELECT item_title, item_created_date FROM item WHERE user_id = (SELECT user_id FROM """ \
-                f"""user_records WHERE user_email = "{email}")"""
+        callToSQL = f"""SELECT item_title, item_approved, item_created_date FROM item WHERE item_creator_id = (SELECT """ \
+                f"""user_id FROM user_records WHERE user_email = "{email}")"""
         cursor.execute(callToSQL)
         values = cursor.fetchall()
         headers = cursor.description
-        dict_to_json = dict(zip((headers[0][0], headers[1][0]), (values[0][0], values[0][1])))
+        list_of_dicts = []
+        for message in values:
+            list_of_dicts.append(dict(zip((headers[0][0], headers[1][0], headers[2][0]), (message[0], message[1],
+                                                                                          message[2]))))
 
-        return json.dumps(dict_to_json)
+        return list_of_dicts
 
     except:
         return 'failure'
@@ -116,7 +119,7 @@ def posts():
         cursor.close()
         conn.close()
 
-#endpoint for posts on dashboard
+#endpoint for messages on dashboard
 @user.route('/messages', methods=['POST'])
 def messages():
     try:
@@ -132,9 +135,12 @@ def messages():
         cursor.execute(callToSQL)
         values = cursor.fetchall()
         headers = cursor.description
-        dict_to_json = dict(zip((headers[0][0], headers[1][0], headers[2][0]), (values[0][0], values[0][1], values[0][2])))
+        list_of_dicts = []
+        for message in values:
+            list_of_dicts.append(dict(zip((headers[0][0], headers[1][0], headers[2][0]), (message[0], message[1],
+                            message[2]))))
 
-        return json.dumps(dict_to_json)
+        return list_of_dicts
 
     except:
         return 'failure'

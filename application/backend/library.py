@@ -131,7 +131,7 @@ def home():
     if request.method == 'GET':
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item LIMIT 8")
+        cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id LIMIT 8")
         conn.commit()
         top_eight = cursor.fetchall()
         print(top_eight)
@@ -162,7 +162,7 @@ def search():
         conn = mysql.connect()
         cursor = conn.cursor()
         if(book['book']=="" and book['Category'] == 'all' ):
-            cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item")
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id")
             conn.commit()
             data = cursor.fetchall()
             print(data)
@@ -178,7 +178,7 @@ def search():
             return Response(json.dumps(jsn),  mimetype='application/json')
 
         elif(book['Category'] == 'all' and book['book']!=""):
-            cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item WHERE item_title LIKE %s ", ( '%' + book['book'] + '%'))
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_title LIKE %s ", ( '%' + book['book'] + '%'))
             conn.commit()
             data = cursor.fetchall()
             print(data)
@@ -193,7 +193,7 @@ def search():
             return Response(json.dumps(jsn),  mimetype='application/json')
 
         elif (book['Category'] != 'all' and book['book']==""):
-            cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item WHERE item_category = %s", (book['Category']))
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_category = %s", (book['Category']))
             conn.commit()
             data = cursor.fetchall()
             print(data)
@@ -209,7 +209,7 @@ def search():
 
 
         elif(book['Category'] != 'all'):
-            cursor.execute("SELECT item_title,item_description, item_author, item_path, item_price, item_category FROM item WHERE item_category = %s AND item_title LIKE %s ", (book['Category'], '%' + book['book'] + '%'))
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_category = %s AND item_title LIKE %s ", (book['Category'], '%' + book['book'] + '%'))
             conn.commit()
             data = cursor.fetchall()
             print(data)
