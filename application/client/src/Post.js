@@ -9,7 +9,11 @@ const Post = ({ post }) => {
     const navigate = useNavigate();
 
     function handleClick() {
-        navigate('/', { state: post });
+        if (isFree) {
+            navigate('/FreePost', { state: post });
+        } else {
+            navigate('/ContactPost', { state: post });
+        }
     }
 
     function isFree() {
