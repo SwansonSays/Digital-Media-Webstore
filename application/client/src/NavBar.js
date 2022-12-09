@@ -5,6 +5,14 @@
  *              Dashboard, Sign in, and register. And contains disclaimer that this is student
  *              project
  */
+
+/*
+Code reviewed by - Himani Varshney
+Date - 12/09/2022
+Comments - 1) Please remove commented block of code before moving to deployment server.
+           2) Good use of header comments and inline comments 
+           3) All URL can be moved to one place and imported from there.
+*/
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect,useState } from 'react';
 
