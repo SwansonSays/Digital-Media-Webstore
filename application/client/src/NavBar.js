@@ -10,6 +10,7 @@ import { useEffect,useState } from 'react';
 
 const NavBar = () => {
     const [category, setCategory] = useState("all");
+    const [searchText, setSearchText] = useState("");
     const navigate = useNavigate();
 /*
     function setCategories() {
@@ -53,6 +54,7 @@ const NavBar = () => {
             // return options;
         }
         setCategories();
+        setPreviousSearch();
     }, [])   
 
     function checkLogin() {
@@ -84,7 +86,8 @@ const NavBar = () => {
 
         // prints search value and seletected category to console
         console.log("searched " + event.target.searchData.value + " in category " + category);
-        
+        sessionStorage.setItem("searchData", event.target.searchData.value);
+
         try {
             const response = await fetch('http://localhost:5000/search', {
                 method  : 'POST',
@@ -112,6 +115,7 @@ const NavBar = () => {
     function handleChange(event) {
         setCategory(event.target.value);
     }
+
     function renderRemainingOptions() {
         if (categoryOptions.length === 0)
             return;
@@ -119,6 +123,19 @@ const NavBar = () => {
         return categoryOptions.map((value, index) => (
             <option value={value} key={`${value}_${index}`}>{value}</option>
         ))
+    }
+
+    function setPreviousSearch() {
+        console.log("In previous search [" + sessionStorage.getItem("searchData") + "]");
+        if (sessionStorage.getItem("searchData") !== null) {
+            console.log("in if");
+            const addText = sessionStorage.getItem("searchData");
+            sessionStorage.removeItem("searchData");
+            setSearchText(addText);
+        } else {
+            console.log("in else");
+            return "";
+        }
     }
 
     return (
@@ -143,6 +160,8 @@ const NavBar = () => {
                         placeholder="Search..."
                         name="searchData"
                         className="searchBar"
+                        onChange={(e) => setSearchText(e.target.value)}
+                        value={ searchText }
                     />
                     <button className="searchButton">Search</button>
                 </form>
