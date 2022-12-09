@@ -1,17 +1,77 @@
 /* 
  * File: Upload.jsx
- * Author: Robert Swanson
+ * Author: Robert Swanson, Donnovan Jiles
  * Description: Page for uploading a file to webapp
  */
 import React from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 const Upload = () => {
-	function handleSubmit(event) {
+	const navigate = useNavigate();
+	const [category, setCategory] = useState("Category");
+	const [productName, setProductName] = useState("");
+	const [price, setPrice] = useState("");
+	const [description, setDescription] = useState("");
+	let uploadInput;
+
+	async function handleUploadImage(event) {
 		event.preventDefault();
-		console.log("Submit");
+		//If user is not logged in, save all text fields to session storage
+		if (sessionStorage.getItem("loggedIn") !== "true") {
+			sessionStorage.setItem("uploadProductName", productName);
+			sessionStorage.setItem("uploadCategory", category);
+			sessionStorage.setItem("uploadPrice", price);
+			sessionStorage.setItem("uploadDescription", description);
+			sessionStorage.setItem("route", "/Upload");
+
+			window.alert("Must be logged in to post.");
+			navigate('/Login');
+		}
+
+		const file_data = new FormData();
+		const upload_data = JSON.stringify({"name" : event.target[0].value, "category" : event.target[1].value, 
+						"price" : event.target[2].value, "description" : event.target[3].value
+						})
+		file_data.append('file', uploadInput.files[0]);
+
+		try {
+			const response = await fetch('http://localhost:5000/post', {
+				method : "POST",
+				body : upload_data,
+				headers: { 'Content-Type': 'application/json' }
+			})
+		} catch (error){
+			console.error(error)
+		}
+
+
+		fetch('http://localhost:5000/savefile', {
+		method: 'POST',
+		body: file_data
+		})
 	}
+
+	useEffect(() => {
+		//If text fields are saved, load the values on render
+		if (sessionStorage.getItem("loggedIn") === "true" && sessionStorage.getItem("uploadProductName") !== null) {
+			setProductName(sessionStorage.getItem("uploadProductName"));
+			setCategory(sessionStorage.getItem("uploadCategory"));
+			setPrice(sessionStorage.getItem("uploadPrice"));
+			setDescription(sessionStorage.getItem("uploadDescription"));
+			
+			sessionStorage.removeItem("uploadProductName");
+			sessionStorage.removeItem("uploadCategory");
+			sessionStorage.removeItem("uploadPrice");
+			sessionStorage.removeItem("uploadDescription");
+        }
+	}, [])
+
+	function handleChange(event) {
+		setCategory(event.target.value);
+    }
 
 	function setCategories() {
 		//Categories return from DB goes here
@@ -25,7 +85,7 @@ const Upload = () => {
 		}
 		*/
 		const options = categories.cat.map((cat, index) => <option key={index} value={cat}>{cat}</option>);
-		console.log(options);
+		//console.log(options);
 		return options;
     }
 
@@ -34,7 +94,7 @@ const Upload = () => {
 			<NavBar ></NavBar>
 			<div className="upload-wrapper">
 
-				<form className="upload-form container" onSubmit={handleSubmit}>
+				<form className="upload-form container" onSubmit={handleUploadImage}>
 					<br />
 					<div className="title">
 						<h3>Post an item</h3>
@@ -46,14 +106,21 @@ const Upload = () => {
 					</div>
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Product Name:<span style={{ color: 'red' }} >*</span></div>
-						<div className="upload-gap"/>
-						<input type="text" className="form-control upload-input" placeholder="Title" required/>
+						<div className="upload-gap" />
+						<input
+							type="text"
+							className="form-control upload-input"
+							placeholder="Title"
+							name="productName"
+							value={productName}
+							onChange={(e) => setProductName(e.target.value)}
+							required />
 					</div>
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Category:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap" />
-						<select className="category-select upload-select required">
+						<select className="category-select upload-select required" onChange={handleChange} value={ category }>
 							<option>Category</option>
 							{setCategories()}
 						</select>
@@ -62,17 +129,28 @@ const Upload = () => {
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Price:<span style={{ color: 'red' }} >*</span></div>
 						<div className="upload-gap" />
-						<input type="text" className="form-control upload-input" placeholder="0.00" required/>	
+						<input
+							type="text"
+							className="form-control upload-input"
+							placeholder="0.00" name="price"
+							value={price}
+							onChange={(e) => setPrice(e.target.value)}
+							required />	
 					</div>
 
 					<div className="input-group mb-3 upload-group">
 						<div className="text-left upload-text">Description:</div>
 						<div className="upload-gap" />
-						<textarea className="form-control upload-input" placeholder="Description..." />
+						<textarea
+							className="form-control upload-input"
+							placeholder="Description..."
+							name="description"
+							value={description}
+							onChange={(e) => setDescription(e.target.value)} />
 					</div>
 
 					<div className="input-group mb-3 upload-group">
-						<input className="form-control upload-file" type="file" id="formFile" required/>
+						<input className="form-control upload-file" ref={(ref) => { uploadInput = ref; }} type="file" name="file" required/>
 					</div>
 
 					<button type="submit" className="btn btn-primary upload-btn">Post</button>

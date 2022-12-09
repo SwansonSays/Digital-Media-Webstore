@@ -35,11 +35,11 @@ const Signup = () => {
         }).then(response => response.text())
             .then(result => {
                 if (result === "success") {
-                    window.alert("Login was successful");
+                    window.alert("Registration was successful");
                     localStorage.setItem("firstname", firstname, "lastname",lastname, "id",id, "email", email);
                     navigate("/Home");
                 } else {
-                    window.alert("Wrong credentials")
+                    window.alert("User is already registered or some of the fields are not valid.")
                 }
             })
             .catch(e => window.alert(e))

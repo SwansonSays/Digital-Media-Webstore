@@ -10,6 +10,7 @@ import { useEffect,useState } from 'react';
 
 const NavBar = () => {
     const [category, setCategory] = useState("all");
+    const [searchText, setSearchText] = useState("");
     const navigate = useNavigate();
 /*
     function setCategories() {
@@ -53,13 +54,40 @@ const NavBar = () => {
             // return options;
         }
         setCategories();
+        setPreviousSearch();
     }, [])   
+
+    function checkLogin() {
+        //sessionStorage.setItem("loggedIn", "true");
+        //sessionStorage.removeItem("loggedIn");
+        var loggedIn = sessionStorage.getItem("loggedIn");
+
+        if (loggedIn === "true") {
+            return  <div className="nav-right">
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Upload">Post</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Dashboard">DashBoard</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Home" onClick={ logout }>Logout</Link>
+                    </div>
+        } else {
+            return  <div className="nav-right">
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Upload">Post</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Login">Sign in</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Signup">Register</Link>
+                    </div>;
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem("loggedIn");
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
         // prints search value and seletected category to console
         console.log("searched " + event.target.searchData.value + " in category " + category);
-        
+        sessionStorage.setItem("searchData", event.target.searchData.value);
+
         try {
             const response = await fetch('http://localhost:5000/search', {
                 method  : 'POST',
@@ -87,6 +115,7 @@ const NavBar = () => {
     function handleChange(event) {
         setCategory(event.target.value);
     }
+
     function renderRemainingOptions() {
         if (categoryOptions.length === 0)
             return;
@@ -96,14 +125,29 @@ const NavBar = () => {
         ))
     }
 
+    function setPreviousSearch() {
+        console.log("In previous search [" + sessionStorage.getItem("searchData") + "]");
+        if (sessionStorage.getItem("searchData") !== null) {
+            console.log("in if");
+            const addText = sessionStorage.getItem("searchData");
+            sessionStorage.removeItem("searchData");
+            setSearchText(addText);
+        } else {
+            console.log("in else");
+            return "";
+        }
+    }
+
     return (
         <nav className="navbar py-0 bg-white border border-dark fixed-top">
             <div className="nav-disclaimer">
                 <p>SFSU Software Engineering Project CSC 648-848, Fall 2022. For Demonstration Only</p>
             </div>
             <div className="nav-content">
-                <h1 href="/"><Link className="brand nav-brand" to="/">Media Store</Link></h1>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
+                <div className="nav-left">
+                    <h1 href="/"><Link className="brand nav-brand" to="/">Media&nbsp;Store</Link></h1>
+                    <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
+                </div>
                 <form className="searchForm" onSubmit={handleSubmit}>
                     <select className="dropdown" onChange={handleChange}>
                         <option value="all">All</option>
@@ -116,13 +160,12 @@ const NavBar = () => {
                         placeholder="Search..."
                         name="searchData"
                         className="searchBar"
+                        onChange={(e) => setSearchText(e.target.value)}
+                        value={ searchText }
                     />
                     <button className="searchButton">Search</button>
                 </form>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Upload">Post</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/">DashBoard</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Login">Login</Link>
-                <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/Signup">Signup</Link>
+                { checkLogin() }
             </div>
         </nav>
     )

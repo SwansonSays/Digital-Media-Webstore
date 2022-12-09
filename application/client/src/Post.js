@@ -12,6 +12,17 @@ const Post = ({ post }) => {
         navigate('/', { state: post });
     }
 
+    function isFree() {
+        if (post.price === "0.00") {
+            console.log(post.price);
+            return true;
+        } else if (post.price === "0") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     return (
         <div className="card" style={{ width: '18rem' }}>
             <img className="card-img-top" src={post.path} alt={post.title}/>
@@ -19,7 +30,7 @@ const Post = ({ post }) => {
                 <h5 className="card-title">{post.title }</h5>
                 <p className="card-text text-truncate">{post.description}</p>
                 <p className="card-text">Seller: {post.author}</p>
-                <p className="card-text">Price: ${post.price}</p>
+                <p className="card-text">Price: { isFree() ? 'Free' :  "$" + post.price}</p>
                 <div className="card-button-wrapper">
                     <button className="btn btn-secondary" onClick={handleClick}>Details</button>
                     <button className="btn btn-primary" onClick={handleClick}>Contact Seller</button>
