@@ -31,8 +31,8 @@ const Login = () => {
                     window.alert("Login was successful");
                     sessionStorage.setItem("email", email);
                     sessionStorage.setItem("loggedIn", "true");
-                    if (sessionStorage.getItem("route") === "/Upload") {
-                        navigate("/Upload");
+                    if (sessionStorage.getItem("route") !== null) {
+                        navigate(sessionStorage.getItem("route"));
                     } else {
                         navigate("/Home");
                     }
