@@ -13,7 +13,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+   const navigate = useNavigate();
 
     const submitLogin = (e) => {
         console.log("email is: " + email);
@@ -56,7 +56,7 @@ const Login = () => {
                             type="email" required
                             className="form-control"
                             placeholder="Enter email"
-                            pattern="+@(sfsu.edu)"
+                            pattern="^[a-zA-Z0-9]+@sfsu\.edu$"
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             id="email"
