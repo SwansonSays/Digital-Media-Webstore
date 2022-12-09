@@ -10,11 +10,26 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 const Upload = () => {
-
+	const navigate = useNavigate();
+	const [category, setCategory] = useState("Category");
+	const [productName, setProductName] = useState("");
+	const [price, setPrice] = useState("");
+	const [description, setDescription] = useState("");
 	let uploadInput;
 
 	async function handleUploadImage(event) {
 		event.preventDefault();
+		//If user is not logged in, save all text fields to session storage
+		if (sessionStorage.getItem("loggedIn") !== "true") {
+			sessionStorage.setItem("uploadProductName", productName);
+			sessionStorage.setItem("uploadCategory", category);
+			sessionStorage.setItem("uploadPrice", price);
+			sessionStorage.setItem("uploadDescription", description);
+			sessionStorage.setItem("route", "/Upload");
+
+			window.alert("Must be logged in to post.");
+			navigate('/Login');
+		}
 
 		const file_data = new FormData();
 		const upload_data = JSON.stringify({"name" : event.target[0].value, "category" : event.target[1].value, 
@@ -41,7 +56,7 @@ const Upload = () => {
 
 	useEffect(() => {
 		//If text fields are saved, load the values on render
-		if (sessionStorage.getItem("route") === "/Upload" && sessionStorage.getItem("loggedIn") === "true") {
+		if (sessionStorage.getItem("loggedIn") === "true" && sessionStorage.getItem("uploadProductName") !== null) {
 			setProductName(sessionStorage.getItem("uploadProductName"));
 			setCategory(sessionStorage.getItem("uploadCategory"));
 			setPrice(sessionStorage.getItem("uploadPrice"));
@@ -51,7 +66,6 @@ const Upload = () => {
 			sessionStorage.removeItem("uploadCategory");
 			sessionStorage.removeItem("uploadPrice");
 			sessionStorage.removeItem("uploadDescription");
-			sessionStorage.removeItem("route");
         }
 	}, [])
 
@@ -71,7 +85,7 @@ const Upload = () => {
 		}
 		*/
 		const options = categories.cat.map((cat, index) => <option key={index} value={cat}>{cat}</option>);
-		console.log(options);
+		//console.log(options);
 		return options;
     }
 

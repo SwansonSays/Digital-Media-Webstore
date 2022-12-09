@@ -20,7 +20,7 @@ const Login = () => {
         console.log("password is: " + password);
 
         e.preventDefault();
-
+        
         return fetch("http://127.0.0.1:5000/login", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -31,8 +31,10 @@ const Login = () => {
                     window.alert("Login was successful");
                     sessionStorage.setItem("email", email);
                     sessionStorage.setItem("loggedIn", "true");
-                    if (sessionStorage.getItem("route") === "/Upload") {
-                        navigate("/Upload");
+                    if (sessionStorage.getItem("route") !== null) {
+                        const route = sessionStorage.getItem("route");
+                        sessionStorage.removeItem("route");
+                        navigate(route);
                     } else {
                         navigate("/Home");
                     }
