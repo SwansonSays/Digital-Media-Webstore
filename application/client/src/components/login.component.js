@@ -63,7 +63,7 @@ const Login = () => {
                             type="email" required
                             className="form-control"
                             placeholder="Enter email"
-                            pattern="+@(sfsu.edu)"
+                            pattern="^[a-zA-Z0-9]+@sfsu\.edu$"
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             id="email"

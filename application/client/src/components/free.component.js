@@ -4,49 +4,33 @@ where users can download the media for free.
 It will display the details of the item. 
 */
 
-import React, { Component } from 'react';
+
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 
-export default class FreePost extends Component {
-    render(){
+const FreePost = ({post}) => {
         return(
             <div>
                 <NavBar />
                 <article className='flex-container'>
                 <div className='child-2'>
-                        <img className='free-post-image' src= "./Verilogbook.png" alt="icon"/>
+                        <img className='free-post-image' src={post.path} alt={post.title}/>
                     </div>
-                    {/* This displays the name of the item*/}
+                    {/* This displays the name of the item, seller, price, and category */}
                     <div className='child-1'>
-                        <h1>Digital Systems Design Using Verilog </h1>
-                        <h5>Textbook by: Byeong Kil Lee, Charles H Roth, and Lizy John</h5>
-                    {/* This displays the category of the item and the download button*/}
-                        <p>Category: Textbook <br></br> Price: Free for Download </p>
-                        <a href="Verilogbook.png" download="Verilogbook">
+                    <h1>{post.title}</h1>
+                    <h5> Seller: {post.author} </h5>
+                    <p> Price: $ {post.price} </p>
+                    <p> Category: {post.category}</p>
+                    {/* This displays the download button*/}
+                        <a href= {post.path} download={post.title}>
                         <button type="button" className="btn btn-primary btn-lg">Download</button> 
                         </a>
                     </div>
                 </article>
-                {/* <div className='container'>
-                <div className="contact-post">
-                    
-                </div> 
-                <br></br>
-                <div className="category">
-                    
-                </div>  
-                <div>
-                    <span>
-                        <button type="button" class="btn btn-primary btn-lg free-button">Download</button>   
-                    </span>         
-                </div>
-                <div>
-                     
-                </div> 
-                </div> */}
                 <Footer />
             </div>  
+
         );
-    }
-}
+     }
+ export default FreePost;
