@@ -86,7 +86,7 @@ img{
 
 .nav-loggedin {
     margin: auto;
-    flex: 0 50%;
+    flex: 0 33%;
 }
 
 .nav-loggedout {

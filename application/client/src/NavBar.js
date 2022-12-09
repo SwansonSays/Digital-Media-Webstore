@@ -63,7 +63,8 @@ const NavBar = () => {
         if (loggedIn === "true") {
             return  <div className="nav-right">
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Upload">Post</Link>
-                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/">DashBoard</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Dashboard">DashBoard</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Home" onClick={ logout }>Logout</Link>
                     </div>
         } else {
             return  <div className="nav-right">
@@ -72,6 +73,10 @@ const NavBar = () => {
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedout" to="/Signup">Register</Link>
                     </div>;
         }
+    }
+
+    function logout() {
+        sessionStorage.removeItem("loggedIn");
     }
 
     async function handleSubmit(event) {

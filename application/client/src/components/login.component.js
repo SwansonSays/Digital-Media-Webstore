@@ -20,7 +20,7 @@ const Login = () => {
         console.log("password is: " + password);
 
         e.preventDefault();
-        /*
+        
         return fetch("http://127.0.0.1:5000/login", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -28,7 +28,6 @@ const Login = () => {
         }).then(response => response.text())
             .then(result => {
                 if (result === "success") {
-                */
                     window.alert("Login was successful");
                     sessionStorage.setItem("email", email);
                     sessionStorage.setItem("loggedIn", "true");
@@ -39,13 +38,11 @@ const Login = () => {
                     } else {
                         navigate("/Home");
                     }
-                    /*
                 } else {
                     window.alert("Wrong credentials")
                 }
             })
             .catch(e => window.alert(e))
-            */
     }
 
     return (
