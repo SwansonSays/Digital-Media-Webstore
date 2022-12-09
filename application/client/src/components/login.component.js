@@ -13,24 +13,31 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-   const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const submitLogin = (e) => {
         console.log("email is: " + email);
         console.log("password is: " + password);
 
         e.preventDefault();
-
+        
         return fetch("http://127.0.0.1:5000/login", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
         }).then(response => response.text())
             .then(result => {
-                if (result === "OK") {
+                if (result === "success") {
                     window.alert("Login was successful");
-                    localStorage.setItem("email", email);
-                    navigate("/Home");
+                    sessionStorage.setItem("email", email);
+                    sessionStorage.setItem("loggedIn", "true");
+                    if (sessionStorage.getItem("route") !== null) {
+                        const route = sessionStorage.getItem("route");
+                        sessionStorage.removeItem("route");
+                        navigate(route);
+                    } else {
+                        navigate("/Home");
+                    }
                 } else {
                     window.alert("Wrong credentials")
                 }
@@ -60,6 +67,7 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             id="email"
+                            required
                         />
                         <br></br>
                         {/* This will ask users to enter their password*/}
@@ -71,6 +79,7 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             id="password"
                             name="password"
+                            required
                         />
                         <div className="submit-button">
                             <button type="submit" className="btn btn-primary">
