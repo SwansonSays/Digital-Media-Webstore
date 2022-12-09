@@ -56,7 +56,7 @@ const Upload = () => {
 
 	useEffect(() => {
 		//If text fields are saved, load the values on render
-		if (sessionStorage.getItem("route") === "/Upload" && sessionStorage.getItem("loggedIn") === "true") {
+		if (sessionStorage.getItem("loggedIn") === "true" && sessionStorage.getItem("uploadProductName") !== null) {
 			setProductName(sessionStorage.getItem("uploadProductName"));
 			setCategory(sessionStorage.getItem("uploadCategory"));
 			setPrice(sessionStorage.getItem("uploadPrice"));
@@ -66,7 +66,6 @@ const Upload = () => {
 			sessionStorage.removeItem("uploadCategory");
 			sessionStorage.removeItem("uploadPrice");
 			sessionStorage.removeItem("uploadDescription");
-			sessionStorage.removeItem("route");
         }
 	}, [])
 
@@ -86,7 +85,7 @@ const Upload = () => {
 		}
 		*/
 		const options = categories.cat.map((cat, index) => <option key={index} value={cat}>{cat}</option>);
-		console.log(options);
+		//console.log(options);
 		return options;
     }
 
