@@ -142,7 +142,13 @@ def home():
         conn.close()
         return Response(json.dumps(jsn), mimetype='application/json')
 
-
+''' 
+    Code reviewed by - Himani Varshney
+    Comments - 1) Remove print statements before deploying the code on server.
+               2) Use more meaningful variable names.
+               3) Use more inline comments for each if else condition. 
+    
+'''
 #endpoint for search
 @app.route('/search', methods=['GET', 'POST'])
 def search():
