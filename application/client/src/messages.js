@@ -10,29 +10,22 @@ function MyMessages(){
             <div className="container mt-4">
                 <p className="text-center"> <p className= "h1">Welcome Joe</p></p>
                 <div className="row"> 
-                    <aside className="col-md-3">
-                    
-                    </aside>
+                    <aside className="col-md-3"></aside>
                     <section className="col-md-9">
-                         <Sidebar />
-                        <div className="card">
-            
+                        <Sidebar />
+                        <div className="card" style={{ width: '28rem' }}>
                             <h5 className="card-header">My Messages</h5>
-             
-                                <div className="card-body">
-                
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Message</th>
-                                                <th>From</th>
-                                                <th>Date</th>
-                                                <button className='btn btn-sm active' >Sort</button>
-                                        
-                                            </tr>
-                                        </thead>
+                            <div className="card-body">
+                                <table className="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Message</th>
+                                            <th>From</th>
+                                            <th>Date</th>
+                                            <button className='btn btn-sm active' >Sort</button>
+                                        </tr>
+                                    </thead>
                                     <tbody> 
-                                
                                         <tr>
                                             <td><Link to='/messages' className='list-group-item list-group-item-action'> message 1 text</Link></td>
                                             <td>sender</td>
@@ -46,13 +39,11 @@ function MyMessages(){
                                             <td>04/01/22</td>
                                             <td><button className='btn btn-danger btn-sm active'>Delete</button></td> 
                                             <td><button className='btn btn-sm active btn btn-primary btn-sm'>View</button></td>
-                                        </tr>  
-                                        
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                 
                      </section>
                 </div>
             </div>

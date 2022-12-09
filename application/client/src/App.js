@@ -21,7 +21,6 @@ import ResultsPage from "./ResultsPage";
 import Upload from "./Upload";
 import AboutUs from "./AboutUs";
 import HomeDemo from "./HomeDemo";
-import Dashboard from "./Dashboard";
 import MyProfile from "./userprofile";
 import MyMessages from "./messages";
 import MyPosts from "./myposts";
@@ -80,7 +79,7 @@ return (
 
 				<Route path="/Message" element={<Message />} />
 
-				<Route path="/Dashboard" element={<Dashboard /> } />
+				<Route path="/myprofile" element={<MyProfile /> } />
     
 		</Routes>
 	</Router>

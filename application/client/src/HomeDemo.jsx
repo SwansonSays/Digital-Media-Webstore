@@ -27,7 +27,7 @@ const Home = () => {
                         <li className="list-group-item"><Link to="/Upload">Post</Link></li>
                         <li className="list-group-item"><Link to="/login">Login</Link></li>
                         <li className="list-group-item"><Link to="/signup">Signup</Link></li>
-                        <li className="list-group-item"><Link to="/dashboard">Dashboard</Link></li>
+                        <li className="list-group-item"><Link to="/myprofile">Dashboard</Link></li>
                     </ul>
                 </ul>
             </ul>
