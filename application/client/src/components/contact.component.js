@@ -6,8 +6,16 @@ and if the user wants it will redirect them to message the seller.
 
 import NavBar from '../NavBar';
 import Footer from "../Footer";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const ContactPost = ({post}) => {
+const ContactPost = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const post = location.state;
+
+    function handleClick() {
+        navigate("/Message", { state: post });
+    }
         return(
             <div>
                 <NavBar />
@@ -23,7 +31,7 @@ const ContactPost = ({post}) => {
                 <div>
             {/* This will redirect users to the messaging page in order to contact the seller */}
                     <span>  
-                        <a className= "link-button" href='/message'> Contact Seller </a>                 
+                        <button type="button" className="link-button" onClick={handleClick}>Contact Seller</button>                 
                     </span> 
                 </div> 
                 <div>
