@@ -4,19 +4,50 @@ If a user wants an item that is not free they will be redirected to this page
 where they can send a message to the seller. 
 The message will have the name of the item the date and the message the user wants to ask. 
 */
-
-import React, { Component } from 'react'
+import React, {useState} from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
+import { useNavigate } from 'react-router-dom';
 
-export default class Message extends Component {
-    render (){  
-      
+const Message = ({post}) => {
+
+    const [date, setDate] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+
+    const submitLogin = (e) => {
+        console.log("date is: " + date);
+        console.log("message is: " + message);
+
+        e.preventDefault();
+        
+        return fetch("http://127.0.0.1:5000/message", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({date, message})
+        }).then(response => response.text())
+            .then(result => {
+                if (result === "success") {
+                    window.alert("Message sent");
+                    sessionStorage.setItem("date", date, "message", message);
+                    if (sessionStorage.getItem("route") !== null) {
+                        const route = sessionStorage.getItem("route");
+                        sessionStorage.removeItem("route");
+                        navigate(route);
+                    } else {
+                        navigate("/Home");
+                    }
+                } else {
+                    window.alert("Unable to send")
+                }
+            })
+            .catch(e => window.alert(e))
+     }
         return (
             <div>
                 <NavBar />
                 <div className="auth-inner3">
-                    <form>
+                    <form onSubmit={(e) => submitLogin(e)}>
                         <div className="title">
                             <h3>Contact Seller</h3> 
                         </div>
@@ -25,7 +56,7 @@ export default class Message extends Component {
                         <input 
                             type="text"
                             className="form-control"
-                            value="Olimpia"
+                            value= {post.author}
                         />
                         <br></br>
                         {/* This will display the date */}
@@ -34,6 +65,9 @@ export default class Message extends Component {
                             type="date"
                             className="form-control"
                             placeholder="Enter date"
+                            onChange={(e) => setDate(e.target.value)}
+                            name="date"
+                            id="date"
                         />
                         <br></br>
                         {/* This will display the name of the item */}
@@ -41,7 +75,7 @@ export default class Message extends Component {
                         <input 
                             type="text"
                             className="form-control"
-                            value="Sunny SF Day"
+                            value= {post.title}
                         />
                         <br></br>
                         {/* This will be the place the user will write their message */}
@@ -50,6 +84,9 @@ export default class Message extends Component {
                             type="text"
                             className="form-control"
                             placeholder="Write message"
+                            onChange={(e) => setMessage(e.target.value)}
+                            name="message"
+                            id="message"
                         />
                         <div className= "submit-button">
                             <button type="submit" className="btn btn-primary">
@@ -62,4 +99,4 @@ export default class Message extends Component {
             </div>
         )
     }
-}
+export default Message;

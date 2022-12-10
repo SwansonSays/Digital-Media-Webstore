@@ -67,7 +67,6 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             id="email"
-                            required
                         />
                         <br></br>
                         {/* This will ask users to enter their password*/}
@@ -79,7 +78,6 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             id="password"
                             name="password"
-                            required
                         />
                         <div className="submit-button">
                             <button type="submit" className="btn btn-primary">
