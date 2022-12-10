@@ -7,13 +7,14 @@ Once these fields are provided they will be signed in.
 import React, {useState} from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
 
     const submitLogin = (e) => {
         console.log("email is: " + email);
@@ -29,11 +30,18 @@ const Login = () => {
             .then(result => {
                 if (result === "success") {
                     window.alert("Login was successful");
+                    //Saves user state to session storage
                     sessionStorage.setItem("email", email);
                     sessionStorage.setItem("loggedIn", "true");
+                    //checks if user was routed to login from another page
                     if (sessionStorage.getItem("route") !== null) {
                         const route = sessionStorage.getItem("route");
                         sessionStorage.removeItem("route");
+                        //reroutes with post details if neccisary
+                        if (route === "/FreePost" || route === "/Message") {
+                            navigate(route, { state: location.state });
+                        }
+                        //otherwise reroutes to previous page or Home
                         navigate(route);
                     } else {
                         navigate("/Home");

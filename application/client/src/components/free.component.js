@@ -7,8 +7,46 @@ It will display the details of the item.
 
 import NavBar from '../NavBar';
 import Footer from "../Footer";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const FreePost = ({post}) => {
+const FreePost = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const post = location.state;
+
+    //Check if user is loggedin before requesting file from DB and downloading
+    function downloadPost() {
+        checkLogin();
+        /****************************************
+        
+        Call to Db for actual file instead
+        of thumbnail goes here. Replace 
+        post.path in fetch with actual file path
+
+        ****************************************/
+
+        //Fetches the file from public
+        fetch(post.path).then(response => {
+            response.blob().then(blob => {
+                //Creates object out of file
+                const fileURL = window.URL.createObjectURL(blob);
+                //Creates anchor values
+                let alink = document.createElement('a');
+                alink.href = fileURL;
+                alink.download = post.title;
+                alink.click();
+            })
+        })
+    }
+
+    //Checks if user is logged in. If not routes user to login and passes post details
+    function checkLogin() {
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+            sessionStorage.setItem("route", "/FreePost");
+            navigate("/Login", {state: post });
+        }
+    }
+
         return(
             <div>
                 <NavBar />
@@ -23,9 +61,7 @@ const FreePost = ({post}) => {
                     <p> Price: $ {post.price} </p>
                     <p> Category: {post.category}</p>
                     {/* This displays the download button*/}
-                        <a href= {post.path} download={post.title}>
-                        <button type="button" className="btn btn-primary btn-lg">Download</button> 
-                        </a>
+                    <button type="button" className="btn btn-primary btn-lg" onClick={ downloadPost }>Download</button> 
                     </div>
                 </article>
                 <Footer />
