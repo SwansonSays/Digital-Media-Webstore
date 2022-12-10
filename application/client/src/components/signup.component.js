@@ -8,6 +8,7 @@ import React, {useState } from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 import { useNavigate } from 'react-router-dom';
+import { uri } from './util';
 
 const Signup = () => {
 
@@ -28,7 +29,7 @@ const Signup = () => {
 
         e.preventDefault();
 
-        return fetch("http://127.0.0.1:5000/signup", {
+        return fetch(`${uri}/signup`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({firstname, lastname, id, email, password})

@@ -7,13 +7,14 @@ import NavBar from "./NavBar";
 import PostPage from "./PostPage";
 import Footer from "./Footer";
 import React, { useEffect, useState } from 'react';
+import { uri } from './util';
 
 const Home = () => {
     const [post, setPost] = useState([]);
     useEffect(() => {
         async function PopulateHome() {
             try {
-                const response = await fetch('http://localhost:5000/home', {method: 'GET', headers: {'Content-Type': 'application/json'}});
+                const response = await fetch(`${uri}/home`, {method: 'GET', headers: {'Content-Type': 'application/json'}});
                 const parsedResponse = await response.json();
                 setPost(parsedResponse);
             } catch (error) {

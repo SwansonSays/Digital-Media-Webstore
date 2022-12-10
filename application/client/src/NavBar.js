@@ -15,6 +15,7 @@ Comments - 1) Please remove commented block of code before moving to deployment 
 */
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect,useState } from 'react';
+import { uri } from './util';
 
 const NavBar = () => {
     const [category, setCategory] = useState("all");
@@ -43,7 +44,7 @@ const NavBar = () => {
     useEffect(() => {
         async function setCategories() {
             try {
-                const response = await fetch('http://localhost:5000/categories', {method: 'GET', headers: {'Content-Type': 'application/json'}});
+                const response = await fetch(`${uri}/categories`, {method: 'GET', headers: {'Content-Type': 'application/json'}});
                 const parsedResponse = await response.json();
                 setCategoryOptions(parsedResponse);
             } catch (error) {
@@ -97,7 +98,7 @@ const NavBar = () => {
         sessionStorage.setItem("searchData", event.target.searchData.value);
 
         try {
-            const response = await fetch('http://localhost:5000/search', {
+            const response = await fetch(`${uri}/search`, {
                 method  : 'POST',
                 body : JSON.stringify({"book":event.target.searchData.value,"Category":category}),
                 headers: { 'Content-Type': 'application/json' }

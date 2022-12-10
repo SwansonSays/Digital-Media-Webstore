@@ -8,6 +8,8 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { uri } from './util';
+
 
 const Upload = () => {
 	const navigate = useNavigate();
@@ -38,7 +40,7 @@ const Upload = () => {
 		file_data.append('file', uploadInput.files[0]);
 
 		try {
-			const response = await fetch('http://localhost:5000/post', {
+			const response = await fetch(`${uri}/post`, {
 				method : "POST",
 				body : upload_data,
 				headers: { 'Content-Type': 'application/json' }
@@ -48,7 +50,7 @@ const Upload = () => {
 		}
 
 
-		fetch('http://localhost:5000/savefile', {
+		fetch(`${uri}/savefile`, {
 		method: 'POST',
 		body: file_data
 		})

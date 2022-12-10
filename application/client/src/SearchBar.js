@@ -6,7 +6,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { uri } from './util';
 
 const SearchBar = ({ setSearchResults}) => {
     const [category, setCategory] = useState("all");
@@ -18,7 +18,7 @@ const SearchBar = ({ setSearchResults}) => {
     useEffect(() => {
         async function setCategories() {
             try {
-                const response = await fetch('http://localhost:5000/categories', {method: 'GET', headers: {'Content-Type': 'application/json'}});
+                const response = await fetch(`${uri}/categories`, {method: 'GET', headers: {'Content-Type': 'application/json'}});
                 const parsedResponse = await response.json();
                 setCategoryOptions(parsedResponse);
             } catch (error) {
@@ -51,7 +51,7 @@ const SearchBar = ({ setSearchResults}) => {
         console.log("searched " + event.target.searchData.value + " in category " + category);
         
         try {
-            const response = await fetch('http://localhost:5000/search', {
+            const response = await fetch(`${uri}/search`, {
                 method  : 'POST',
                 body : JSON.stringify({"book":event.target.searchData.value,"Category":category}),
                 headers: { 'Content-Type': 'application/json' }
