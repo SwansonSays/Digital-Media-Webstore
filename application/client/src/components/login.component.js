@@ -27,10 +27,15 @@ const Login = () => {
             body: JSON.stringify({email, password})
         }).then(response => response.text())
             .then(result => {
-                if (result === "OK") {
+                if (result === "success") {
                     window.alert("Login was successful");
-                    localStorage.setItem("email", email);
-                    navigate("/Home");
+                    sessionStorage.setItem("email", email);
+                    sessionStorage.setItem("loggedIn", "true");
+                    if (sessionStorage.getItem("route") === "/Upload") {
+                        navigate("/Upload");
+                    } else {
+                        navigate("/Home");
+                    }
                 } else {
                     window.alert("Wrong credentials")
                 }
@@ -56,6 +61,7 @@ const Login = () => {
                             type="email" required
                             className="form-control"
                             placeholder="Enter email"
+                            pattern="+@(sfsu.edu)"
                             onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             id="email"

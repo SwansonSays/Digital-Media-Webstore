@@ -4,16 +4,51 @@ Users are asked to provide their first and last name, email address, sfsu id num
 Once these fields are provided they will be signed in and have an account.  
 */
 
-import React, { Component } from 'react'
+import React, {useState } from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
+import { useNavigate } from 'react-router-dom';
 
-export default class Signup extends Component {
-    render(){
+const Signup = () => {
+
+    const [firstname, setFirstname]= useState("");
+    const [lastname, setLastname]= useState("");
+    const [id, setId]= useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const submitLogin = (e) => {
+        console.log("first name is: " + firstname);
+        console.log("last name is: " + lastname);
+        console.log("id is: " + id);
+        console.log("email is: " + email);
+        console.log("password is: " + password);
+        
+
+        e.preventDefault();
+
+        return fetch("http://127.0.0.1:5000/signup", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({firstname, lastname, id, email, password})
+        }).then(response => response.text())
+            .then(result => {
+                if (result === "success") {
+                    window.alert("Registration was successful");
+                    localStorage.setItem("firstname", firstname, "lastname",lastname, "id",id, "email", email);
+                    navigate("/Home");
+                } else {
+                    window.alert("User is already registered or some of the fields are not valid.")
+                }
+            })
+            .catch(e => window.alert(e))
+    }
+
         return (
             <div>
                 <NavBar />
-                <form>
+                <form onSubmit={(e) => submitLogin(e)}>
                     <div className="auth-wrapper">
                         <div className="auth-inner1">
                             <div className="title">
@@ -28,6 +63,9 @@ export default class Signup extends Component {
                                 type= "text" required
                                 className="form-control"
                                 placeholder="First name"
+                                onChange={(e) => setFirstname(e.target.value)}
+                                id="firstname"
+                                name="firstname"
                             />
                             <br></br>
                         {/* This will ask users to enter their last name */}
@@ -36,6 +74,9 @@ export default class Signup extends Component {
                                 type= "text" required
                                 className="form-control"
                                 placeholder="Last name"
+                                onChange={(e) => setLastname(e.target.value)}
+                                id="lastname"
+                                name="lastname"
                             />
                             <br></br>
                         {/* This will ask users to enter their sfsu id */}
@@ -44,6 +85,9 @@ export default class Signup extends Component {
                                 type= "text" required
                                 className="form-control"
                                 placeholder="Enter id"
+                                onChange={(e) => setId(e.target.value)}
+                                id="id"
+                                name="id"
                             />
                             <br></br>
                         {/* This will ask users to enter their email address */}
@@ -52,6 +96,10 @@ export default class Signup extends Component {
                                 type= "email" required
                                 className="form-control"
                                 placeholder="Enter email"
+                                pattern="+@(sfsu.edu)"
+                                onChange={(e) => setEmail(e.target.value)}
+                                name="email"
+                                id="email"
                             />
                             <br></br>
                         {/* This will ask users to enter their password */}
@@ -60,6 +108,9 @@ export default class Signup extends Component {
                                 type= "password" required
                                 className="form-control"
                                 placeholder="Enter password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                id="password"
+                                name="password"
                             />
                             <br></br>
                         {/* This will ask users to agree to terms and conditions */}
@@ -86,4 +137,4 @@ export default class Signup extends Component {
             </div>
         )
     }
-}
+    export default Signup;

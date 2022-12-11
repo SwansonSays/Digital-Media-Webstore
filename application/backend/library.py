@@ -1,21 +1,22 @@
 '''
 Created on : Oct 27,2022
-Author : Himani , Donnovan 
+Author : Himani , Donnovan
 Purpose : backend apis for search results and populating home page
 '''
 
-import base64, os
+import os
 from flask import Flask,  request, session
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-import hashlib
 import json
 from flask import Response
 from werkzeug.utils import secure_filename
 from datetime import date
+from user import user
 
 
 app = Flask(__name__)
+app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
@@ -33,7 +34,6 @@ mysql = MySQL()
 
 # intialize the extension
 mysql.init_app(app)
-
 
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -311,6 +311,8 @@ def search():
 
         return Response(json.dumps(jsn),  mimetype='application/json')
 
+
 if __name__=='__main__':
-    app.debug = True 
+    app.debug = True
     app.run()
+
