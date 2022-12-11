@@ -9,14 +9,43 @@ import React, { Component } from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 
+
+async function handleUploadImage(event) {
+    event.preventDefault();
+
+    const message_data = JSON.stringify({"message_reciever" : event.target[0].value, 
+                                         "date" : event.target[1].value,
+                                         "title" : event.target[2].value,
+                                         "message" : event.target[3].value,
+                                         "email": sessionStorage.getItem("email")
+                                        })
+
+    try {
+        const response = await fetch('http://localhost:5000/contact' , {
+            method : "POST",
+            body : message_data,
+            headers: { 'Content-Type': 'application/json' }
+        })
+        const parsedResponse = await response.json();
+        console.log(parsedResponse)
+    } catch (error) {
+        console.log(error)
+    }
+
+    
+
+
+}
+
 export default class Message extends Component {
+
     render (){  
       
         return (
             <div>
                 <NavBar />
                 <div className="auth-inner3">
-                    <form>
+                    <form onSubmit={handleUploadImage}>
                         <div className="title">
                             <h3>Contact Seller</h3> 
                         </div>
@@ -25,7 +54,6 @@ export default class Message extends Component {
                         <input 
                             type="text"
                             className="form-control"
-                            value="Olimpia"
                         />
                         <br></br>
                         {/* This will display the date */}
@@ -41,7 +69,6 @@ export default class Message extends Component {
                         <input 
                             type="text"
                             className="form-control"
-                            value="Sunny SF Day"
                         />
                         <br></br>
                         {/* This will be the place the user will write their message */}

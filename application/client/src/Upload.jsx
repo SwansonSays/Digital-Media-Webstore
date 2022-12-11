@@ -16,7 +16,7 @@ const Upload = () => {
 
 		const file_data = new FormData();
 		const upload_data = JSON.stringify({"name" : event.target[0].value, "category" : event.target[1].value, 
-						"price" : event.target[2].value, "description" : event.target[3].value
+						"price" : event.target[2].value, "description" : event.target[3].value,  "email": sessionStorage.getItem("email")
 						})
 		file_data.append('file', uploadInput.files[0]);
 
@@ -26,15 +26,17 @@ const Upload = () => {
 				body : upload_data,
 				headers: { 'Content-Type': 'application/json' }
 			})
+			const parsedResponse = await response.json();
+            console.log(parsedResponse)
 		} catch (error){
 			console.error(error)
 		}
 
-
-		fetch('http://localhost:5000/savefile', {
+		fetch('http://localhost:5000/post', {
 		method: 'POST',
 		body: file_data
 		})
+
 	}
 
 	function setCategories() {
