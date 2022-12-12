@@ -36,6 +36,12 @@ const FreePost = () => {
             setAuthor(sessionStorage.getItem("freeAuthor"));
             setPrice(sessionStorage.getItem("freePrice"));
             setCategory(sessionStorage.getItem("freeCategory"));
+
+            sessionStorage.removeItem("freePath");
+            sessionStorage.removeItem("freeTitle");
+            sessionStorage.removeItem("freeAuthor");
+            sessionStorage.removeItem("freePrice");
+            sessionStorage.removeItem("freeCategory");
         }
 
     }, [])
