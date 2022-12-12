@@ -87,7 +87,7 @@ const NavBar = () => {
     }
 
     function logout() {
-        sessionStorage.removeItem("loggedIn");
+        sessionStorage.clear();
     }
 
     async function handleSubmit(event) {
@@ -135,14 +135,14 @@ const NavBar = () => {
     }
 
     function setPreviousSearch() {
-        console.log("In previous search [" + sessionStorage.getItem("searchData") + "]");
+        //console.log("In previous search [" + sessionStorage.getItem("searchData") + "]");
         if (sessionStorage.getItem("searchData") !== null) {
-            console.log("in if");
+            //console.log("in if");
             const addText = sessionStorage.getItem("searchData");
             sessionStorage.removeItem("searchData");
             setSearchText(addText);
         } else {
-            console.log("in else");
+            //console.log("in else");
             return "";
         }
     }
