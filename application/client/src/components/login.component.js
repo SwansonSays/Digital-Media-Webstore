@@ -8,7 +8,7 @@ import React, {useState} from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { uri } from './util';
+import { uri } from '../util';
 
 const Login = () => {
 
