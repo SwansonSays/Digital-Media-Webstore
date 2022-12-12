@@ -8,12 +8,37 @@ It will display the details of the item.
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const FreePost = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const post = location.state;
+    const [path, setPath] = useState("");
+    const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("");
+    const [price, setPrice] = useState("");
+    const [category, setCategory] = useState("");
 
+    useEffect(() => {
+        if (post !== null) {
+            setPath(post.path);
+            setTitle(post.title);
+            setAuthor(post.author);
+            setPrice(post.price);
+            setCategory(post.category);
+        }
+
+        if (sessionStorage.getItem("loggedIn") === "true" && sessionStorage.getItem("freePath") !== null) {
+            setPath(sessionStorage.getItem("freePath"));
+            setTitle(sessionStorage.getItem("freeTitle"));
+            setAuthor(sessionStorage.getItem("freeAuthor"));
+            setPrice(sessionStorage.getItem("freePrice"));
+            setCategory(sessionStorage.getItem("freeCategory"));
+        }
+
+    }, [])
     //Check if user is loggedin before requesting file from DB and downloading
     function downloadPost() {
         /****************************************
@@ -25,14 +50,14 @@ const FreePost = () => {
         ****************************************/
 
         //Fetches the file from public
-        fetch(post.path).then(response => {
+        fetch(path).then(response => {
             response.blob().then(blob => {
                 //Creates object out of file
                 const fileURL = window.URL.createObjectURL(blob);
                 //Creates anchor values
                 let alink = document.createElement('a');
                 alink.href = fileURL;
-                alink.download = post.title;
+                alink.download = title;
                 alink.click();
             })
         })
@@ -42,6 +67,13 @@ const FreePost = () => {
     function checkLogin() {
         if (sessionStorage.getItem("loggedIn") !== "true") {
             sessionStorage.setItem("route", "/FreePost");
+
+            sessionStorage.setItem("freePath", post.path);
+            sessionStorage.setItem("freeTitle", post.title);
+            sessionStorage.setItem("freeAuthor", post.author);
+            sessionStorage.setItem("freePrice", post.price);
+            sessionStorage.setItem("freeCategory", post.category);
+
             navigate("/Login", { state: post });
         } else {
             downloadPost();
@@ -53,14 +85,14 @@ const FreePost = () => {
                 <NavBar />
                 <article className='flex-container'>
                 <div className='child-2'>
-                        <img className='free-post-image' src={post.path} alt={post.title}/>
+                        <img className='free-post-image' src={path} alt={title}/>
                     </div>
                     {/* This displays the name of the item, seller, price, and category */}
                     <div className='child-1'>
-                    <h1>{post.title}</h1>
-                    <h5> Seller: {post.author} </h5>
-                    <p> Price: $ {post.price} </p>
-                    <p> Category: {post.category}</p>
+                    <h1>{title}</h1>
+                    <h5> Seller: {author} </h5>
+                    <p> Price: $ {price} </p>
+                    <p> Category: {category}</p>
                     {/* This displays the download button*/}
                     <button type="button" className="btn btn-primary btn-lg" onClick={ checkLogin }>Download</button> 
                     </div>
