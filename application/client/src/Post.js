@@ -20,7 +20,9 @@ const Post = ({ post }) => {
 
     //Returns true if post is free and false if not
     function isFree() {
-        if (post.price === 0) {
+        if (post.price === "0.00") {
+            return true;
+        } else if (post.price === "0") {
             return true;
         } else {
             return false;

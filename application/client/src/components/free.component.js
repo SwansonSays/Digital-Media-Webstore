@@ -16,7 +16,6 @@ const FreePost = () => {
 
     //Check if user is loggedin before requesting file from DB and downloading
     function downloadPost() {
-        checkLogin();
         /****************************************
         
         Call to Db for actual file instead
@@ -43,7 +42,9 @@ const FreePost = () => {
     function checkLogin() {
         if (sessionStorage.getItem("loggedIn") !== "true") {
             sessionStorage.setItem("route", "/FreePost");
-            navigate("/Login", {state: post });
+            navigate("/Login", { state: post });
+        } else {
+            downloadPost();
         }
     }
 
@@ -61,7 +62,7 @@ const FreePost = () => {
                     <p> Price: $ {post.price} </p>
                     <p> Category: {post.category}</p>
                     {/* This displays the download button*/}
-                    <button type="button" className="btn btn-primary btn-lg" onClick={ downloadPost }>Download</button> 
+                    <button type="button" className="btn btn-primary btn-lg" onClick={ checkLogin }>Download</button> 
                     </div>
                 </article>
                 <Footer />
