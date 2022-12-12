@@ -8,7 +8,7 @@ import React, {useState } from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 import { useNavigate } from 'react-router-dom';
-import { uri } from './util';
+import { uri } from '../util';
 
 const Signup = () => {
 
