@@ -72,7 +72,7 @@ const Message = () => {
                 .then(result => {
                     if (result === "success") {
                         window.alert("Message sent");
-                        navigate("/Home");
+                        navigate("/");
                     } else {
                         window.alert("Unable to send")
                     }
