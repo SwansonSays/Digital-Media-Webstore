@@ -48,8 +48,7 @@ function MyPosts(){
         fetchUser();
     }, [])
     
-
- 
+    
     return (
         <div>
             <NavBar />
@@ -75,7 +74,7 @@ function MyPosts(){
                                         {posts.map((posts) => (
                                             <tr key={posts.item_created_date}>
                                                 <td>{posts.item_title}</td>
-                                                <td></td>
+                                                <td>{posts.item_approved ? 'Approved' : 'Pending'}</td>
                                                 <td>{posts.item_created_date}</td>
                                                 <td><button className='btn btn-danger btn-sm active'>Delete</button></td>
                                                 <td><button className="btn btn-sm active btn btn-primary btn-sm">View</button></td>
