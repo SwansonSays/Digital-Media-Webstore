@@ -6,15 +6,40 @@
  */
 import React from "react"
 import Post from "./Post"
+import { useEffect, useState } from "react"
 
 const PostPage = ({ results }) => {
+    const _ = require("lodash");
+    //let mappedResults = results.map((post, index) => <Post key={index} post={post} />);
+    let [content, setContent] = useState();
 
-    const mappedResults = results.map((post, index) => <Post key={index} post={post} />);
+    useEffect(() => {
+        let mappedResults = results.map((post, index) => <Post key={index} post={post} />);
+        setContent(mappedResults);
+    }, [results])
+    
 
-    const content = mappedResults;
+    function handleChange(event) {
+        if (event.target.value === "asc") {
+            let sorted = _.sortBy(results, ['price']);
+            setContent(sorted.map((post, index) => <Post key={index} post={post} />));
+        } else if (event.target.value === "desc") {
+            let sorted = _.orderBy(results, ['price'], ["desc"]);
+            setContent(sorted.map((post, index) => <Post key={index} post={post} />));
+        }
+    }
 
     return (
-        <main className="postPage">{content}</main>
+        <div>
+            <div className="resultsInfo">
+                <select className="sortBy" onChange={ handleChange }>
+                    <option>Sort By</option>
+                    <option value="asc">Price &#8593;</option>
+                    <option value="desc">Price &#8595;</option>
+                </select>
+            </div>
+            <main className="postPage">{content}</main>
+        </div>
     )
 }
 export default PostPage
