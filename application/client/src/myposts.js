@@ -2,8 +2,31 @@ import {Link} from 'react-router-dom'
 import Sidebar from './sidebar';
 import NavBar from './NavBar';
 import Footer from './Footer';
+import { uri } from './util';
+import { useEffect, useState } from 'react';
 
 function MyPosts(){
+
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        async function fetchPosts() {
+            try {
+            const email = window.sessionStorage.getItem('email');
+            const request = JSON.stringify({email: email});
+            const response = await fetch(`${uri}/posts`, {method: 'POST', headers: { 'Content-Type': 'application/json'}, body:  request});
+            const parsedResponse = await(response.json());
+            setPosts(parsedResponse);
+            } catch(error) {
+                console.error(error)
+            }
+            
+
+        }
+
+        fetchPosts();
+    }, [])
+
     return (
         <div>
             <NavBar />
@@ -26,21 +49,16 @@ function MyPosts(){
                                              </tr>
                                         </thead>
                                         <tbody> 
-                                            <tr>
-                                                <td><Link to='/myposts' className='list-group-item list-group-item-action'> Post1</Link></td>
-                                                <td>posted</td>
-                                                <td>01/11/22</td>
+                                        {posts.map((posts) => (
+                                            <tr key={posts.item_created_date}>
+                                                <td>{posts.item_title}</td>
+                                                <td>{posts.item_approved}</td>
+                                                <td>{posts.post_created_date}</td>
                                                 <td><button className='btn btn-danger btn-sm active'>Delete</button></td>
                                                 <td><button className="btn btn-sm active btn btn-primary btn-sm">View</button></td>
                                             </tr>
-
-                                            <tr>
-                                                <td><Link to='/myposts' className='list-group-item list-group-item-action'> post2</Link></td>
-                                                <td>pending</td>
-                                                <td>03/04/22</td>
-                                                <td><button className='btn btn-danger btn-sm active'>Delete</button></td>
-                                                <td><button className="btn btn-sm active btn btn-primary btn-sm">View</button></td>
-                                            </tr>
+                                            ))}
+                                           
                                         </tbody>
                         
                                     </table>

@@ -1,9 +1,31 @@
+import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import Footer from './Footer';
 import NavBar from './NavBar';
 import Sidebar from './sidebar';
+import { uri } from './util';
 
 function MyMessages(){
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        async function fetchMessages() {
+            try {
+            const email = window.sessionStorage.getItem('email');
+            const request = JSON.stringify({email: email});
+            const response = await fetch(`${uri}/messages`, {method: 'POST', headers: { 'Content-Type': 'application/json'}, body:  request});
+            const parsedResponse = await(response.json());
+            setMessages(parsedResponse);
+            } catch(error) {
+                console.error(error)
+            }
+            
+
+        }
+
+        fetchMessages();
+    }, [])
+
     return (
         <div>
             <NavBar />
@@ -25,21 +47,18 @@ function MyMessages(){
                                             <button className='btn btn-sm active' >Sort</button>
                                         </tr>
                                     </thead>
-                                    <tbody> 
-                                        <tr>
-                                            <td><Link to='/messages' className='list-group-item list-group-item-action'> message 1 text</Link></td>
-                                            <td>sender</td>
-                                            <td>12/2/21</td>
-                                            <td><button className='btn btn-danger btn-sm active'>Delete</button></td>
-                                            <td><button className="btn btn-sm active btn btn-primary btn-sm">View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><Link to='/messages' className='list-group-item list-group-item-action'> message 2 text</Link></td>
-                                            <td>sender</td>
-                                            <td>04/01/22</td>
-                                            <td><button className='btn btn-danger btn-sm active'>Delete</button></td> 
-                                            <td><button className='btn btn-sm active btn btn-primary btn-sm'>View</button></td>
-                                        </tr>
+                                    <tbody>
+                                        {messages.map((message) => (
+                                            <tr key={message.message_created_date}>
+                                                <td>{message.message_body_text}</td>
+                                                <td>{message.user_username}</td>
+                                                <td>{message.message_created_date}</td>
+                                                <td><button className='btn btn-danger btn-sm active'>Delete</button></td>
+                                                <td><button className="btn btn-sm active btn btn-primary btn-sm">View</button></td>
+                                            </tr>
+                                        ))}
+                                        
+                                    
                                     </tbody>
                                 </table>
                             </div>
