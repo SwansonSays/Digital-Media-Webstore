@@ -11,6 +11,7 @@ from flask_cors import CORS
 import json
 from flask import Response
 from werkzeug.utils import secure_filename
+from datetime import date
 from user import user
 
 
@@ -23,6 +24,7 @@ app.config['MYSQL_DATABASE_USER'] = 'db_admin'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
 app.config['MYSQL_DATABASE_DB'] = 'mediastore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['SECRET_KEY'] = "CSC648secretkey"
 
 UPLOAD_FOLDER = 'static'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -37,6 +39,39 @@ conn = mysql.connect()
 cursor = conn.cursor()
 
 
+@app.route('/login', methods=['POST'])
+def process_json():
+    json = request.json
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    email = json["email"]
+    password = json["password"]
+    #callToSQL = (f'SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest().encode("utf-8")}"')
+    cursor.execute(('SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest().encode("utf-8")}"'))
+    account = cursor.fetchone()
+    if account:
+        return 'OK'
+    else:
+        return 'Not OK'
+
+@app.route('/register', methods=['POST'])
+def process_json_reg():
+    json = request.json
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    email = json["email"]
+    password = json["password"]
+    username = json["student_id"]
+    first_name = json["first_name"]
+    last_name = json["last_name"]
+    callToSQL = 'INSERT INTO user_records (user_type,user_username,user_first_name,user_last_name,email,password) VALUES ("registered_user","{username}","{first_name}","{last_name}","{email}","{hashlib.md5(password.encode()).hexdigest()}")'
+    cursor.execute(callToSQL)
+    state = cursor.fetchone()
+    if state:
+        return 'OK'
+    else:
+        return 'Not OK'
+
 @app.route('/contact', methods=['POST'])
 def contactSeller():
     if request.method == 'POST':
@@ -45,16 +80,22 @@ def contactSeller():
         conn = mysql.connect()
         cursor = conn.cursor()
 
-        user_id = cursor.execute("SELECT user_id from user_records where user_username = %s", contact_request['name'])
+        cursor.execute("SELECT user_id from user_records where user_username = %s", contact_request['message_reciever'])
 
-        if user_id:
+        receiver_id = cursor.fetchall()
+
+        cursor.execute("SELECT user_id from user_records where user_email = %s", contact_request['email'])
+
+        sender_id = cursor.fetchall()
+
+        if receiver_id:
 
             insert_statement = (
                 "INSERT INTO message(message_text, message_created, message_sender_user_id, message_recipient_user_id)"
                 "VALUES (%s, %s, %s, %s)"
             )
 
-            data = (contact_request['message'], contact_request['date'], 2, user_id)
+            data = (contact_request['message'], contact_request['date'], sender_id, receiver_id)
 
             cursor.execute(insert_statement, data)
 
@@ -72,22 +113,51 @@ def contactSeller():
 @app.route('/post', methods=['POST'])
 def post():
     if request.method == 'POST':
+
         post_request = request.get_json()
         conn = mysql.connect()
         cursor = conn.cursor()
 
+        try:
+            target=os.path.join(UPLOAD_FOLDER,'media')
+            if not os.path.isdir(target):
+                os.mkdir(target)
+            print("welcome to upload`")
+            file = request.files['file'] 
+            filename = secure_filename(file.filename)
+            destination="/".join([target, filename])
+            file.save(destination)
+            session['uploadFilePath']=destination
+            print("File saved successfully")
+            resp = {"Response" : "200 OK"}
+            return Response(json.dumps(resp), mimetype='application/json')
+        except:
+            print("first api call")
+
+        print("welcome to /post!!")
+        print("EMAIL : ", post_request['email'])
+
+        user_id_insert = ("SELECT user_id FROM user_records WHERE user_email = %s ")
+   
+        cursor.execute(user_id_insert, post_request['email'])
+        fetch = cursor.fetchall()
+        item_creator_id = fetch[0][0]
+        today = date.today()
+        current_date = today.strftime("%y-%m-%d")
+
         insert_statement = (
-            "INSERT INTO item (item_title, item_categorie, item_description) "
-            "VALUES (%s, %s, %s)"
+            "INSERT INTO item (item_title, item_category, item_description, item_price, item_creator_id, item_created_date, item_file, item_path, item_approved) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         )
 
-        data = (post_request['name'], post_request['category'], post_request['description'])
+        data = (post_request['name'], post_request['category'], post_request['description'], post_request['price'], item_creator_id, current_date, post_request['name'], post_request['name'], 'pending')
 
         cursor.execute(insert_statement, data)
         conn.commit()
         print("Insert completed")
         resp = {"Response" : "200 OK"}
         return Response(json.dumps(resp), mimetype='application/json')
+
 
 @app.route('/savefile', methods=['POST'])
 def post_1():

@@ -93,7 +93,6 @@ const Message = () => {
                         <input 
                             type="text"
                             className="form-control"
-                            value={author}
                         />
                         <br></br>
                         {/* This will display the date */}
@@ -113,7 +112,6 @@ const Message = () => {
                         <input 
                             type="text"
                             className="form-control"
-                            value={title}
                         />
                         <br></br>
                         {/* This will be the place the user will write their message */}
