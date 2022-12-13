@@ -26,12 +26,35 @@ function MyPosts(){
 
         fetchPosts();
     }, [])
+    
+  
 
+    const [profile, setUser] = useState([]);
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+            const email = window.sessionStorage.getItem('email');
+            const request = JSON.stringify({email: email});
+            const response = await fetch(`${uri}/profile`, {method: 'POST', headers: { 'Content-Type': 'application/json'}, body:  request});
+            const parsedResponse = await(response.json());
+            setUser(parsedResponse);
+            } catch(error) {
+                console.error(error)
+            }
+            
+
+        }
+
+        fetchUser();
+    }, [])
+    
+
+ 
     return (
         <div>
             <NavBar />
             <div className="container mt-4">
-                <p className="text-center"> <p className= "h1">Welcome Joe</p></p>
+                <p className="text-center"> <p className= "h1">Welcome {profile.user_first_name}</p></p>
                 <div className="row"> 
                     <aside className="col-md-3"> </aside>
                     <section className='col-md-9'>
@@ -41,7 +64,7 @@ function MyPosts(){
                                 <div className="card-body">
                                     <table className="table table-bordered">
                                         <thead>
-                                            <td>2 results found</td>
+                                            <td>{setPosts.length} results found</td>
                                              <tr>
                                                 <th>Post Name</th>
                                                 <th>Status</th>
@@ -52,8 +75,8 @@ function MyPosts(){
                                         {posts.map((posts) => (
                                             <tr key={posts.item_created_date}>
                                                 <td>{posts.item_title}</td>
-                                                <td>{posts.item_approved}</td>
-                                                <td>{posts.post_created_date}</td>
+                                                <td></td>
+                                                <td>{posts.item_created_date}</td>
                                                 <td><button className='btn btn-danger btn-sm active'>Delete</button></td>
                                                 <td><button className="btn btn-sm active btn btn-primary btn-sm">View</button></td>
                                             </tr>

@@ -7,11 +7,13 @@ import { useEffect, useState } from 'react';
 
 function MyProfile() {   
     const [profile, setUser] = useState([]);
+    const [email, setEmail] = useState("");
+    
 
     useEffect(() => {
         async function fetchUser() {
             try {
-            const email = window.sessionStorage.getItem('email');
+            email = window.sessionStorage.getItem('email');
             const request = JSON.stringify({email: email});
             const response = await fetch(`${uri}/profile`, {method: 'POST', headers: { 'Content-Type': 'application/json'}, body:  request});
             const parsedResponse = await(response.json());
@@ -26,6 +28,7 @@ function MyProfile() {
         fetchUser();
     }, [])
 
+   
  
 
     return (
@@ -42,9 +45,9 @@ function MyProfile() {
                             <h5 className='card-header'>My Profile</h5>
                             <div className='card-body'>
                                 <table className="table table-bordered">
-                                    <p> Name: {profile.user_first_name}</p>
-                                    <p>  Last Name: {profile.user_last_name}</p>
-                                    <p> Email: {profile.user_email}</p>
+                                    <p> First Name: {profile.user_first_name}</p>
+                                    <p> Last Name: {profile.user_last_name}</p>
+                                    <p> Email: {email}</p>
                                 </table>
                             </div>
                         </div>
