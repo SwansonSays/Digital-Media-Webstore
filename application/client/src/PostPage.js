@@ -10,7 +10,6 @@ import { useEffect, useState } from "react"
 
 const PostPage = ({ results }) => {
     const _ = require("lodash");
-    //let mappedResults = results.map((post, index) => <Post key={index} post={post} />);
     let [content, setContent] = useState();
 
     useEffect(() => {
