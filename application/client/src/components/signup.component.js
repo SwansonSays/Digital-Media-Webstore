@@ -8,6 +8,7 @@ import React, {useState } from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 import { useNavigate } from 'react-router-dom';
+import { uri } from '../util';
 
 const Signup = () => {
 
@@ -28,7 +29,7 @@ const Signup = () => {
 
         e.preventDefault();
 
-        return fetch("http://127.0.0.1:5000/signup", {
+        return fetch(`${uri}/signup`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({firstname, lastname, id, email, password})
@@ -96,7 +97,7 @@ const Signup = () => {
                                 type= "email" required
                                 className="form-control"
                                 placeholder="Enter email"
-                                pattern="+@(sfsu.edu)"
+                                pattern="^[a-zA-Z0-9]+@sfsu\.edu$"
                                 onChange={(e) => setEmail(e.target.value)}
                                 name="email"
                                 id="email"

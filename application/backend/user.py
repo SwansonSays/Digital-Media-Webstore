@@ -64,8 +64,8 @@ def signup():
         conn.close()
 
 #endpoint for profile on dashboard
-@user.route('/dashboard_profile', methods=['POST'])
-def dashboard_profile():
+@user.route('/profile', methods=['POST'])
+def profile():
     try:
         from library import mysql
         conn = mysql.connect()
@@ -79,7 +79,68 @@ def dashboard_profile():
         headers = cursor.description
         dict_to_json = dict(zip((headers[0][0], headers[1][0]), (values[0][0], values[0][1])))
 
-        return json.dumps(dict_to_json)
+        return dict_to_json
+
+    except:
+        return 'failure'
+
+    finally:
+        # closing database connection.
+        cursor.close()
+        conn.close()
+
+#endpoint for posts on dashboard
+@user.route('/posts', methods=['POST'])
+def posts():
+    try:
+        from library import mysql
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        data = request.json
+        email = data["email"]
+
+        callToSQL = f"""SELECT item_title, item_approved, item_created_date FROM item WHERE item_creator_id = (SELECT """ \
+                f"""user_id FROM user_records WHERE user_email = "{email}")"""
+        cursor.execute(callToSQL)
+        values = cursor.fetchall()
+        headers = cursor.description
+        list_of_dicts = []
+        for message in values:
+            list_of_dicts.append(dict(zip((headers[0][0], headers[1][0], headers[2][0]), (message[0], message[1],
+                                                                                          message[2]))))
+
+        return list_of_dicts
+
+    except:
+        return 'failure'
+
+    finally:
+        # closing database connection.
+        cursor.close()
+        conn.close()
+
+#endpoint for messages on dashboard
+@user.route('/messages', methods=['POST'])
+def messages():
+    try:
+        from library import mysql
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        data = request.json
+        email = data["email"]
+
+        callToSQL = f"""SELECT message_body_text, user_username, message_created_date FROM message JOIN """ \
+                f"""user_records ON message_receiver_id = user_id WHERE user_id = (SELECT user_id FROM user_records """ \
+                f"""WHERE user_email = "{email}")"""
+        cursor.execute(callToSQL)
+        values = cursor.fetchall()
+        headers = cursor.description
+        list_of_dicts = []
+        for message in values:
+            list_of_dicts.append(dict(zip((headers[0][0], headers[1][0], headers[2][0]), (message[0], message[1],
+                            message[2]))))
+
+        return list_of_dicts
 
     except:
         return 'failure'

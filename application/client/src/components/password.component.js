@@ -26,6 +26,7 @@ export default class Password extends Component {
                                 type= "email" required
                                 className="form-control"
                                 placeholder="Enter email"
+                                pattern="^[a-zA-Z0-9]+@sfsu\.edu$"
                             />
                             {/* Once the user submits their email an alert will tell them their email has been sent */}
                             <div className= "submit-button">

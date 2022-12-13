@@ -4,48 +4,51 @@ If a user wants an item that is not free they will be redirected to this page
 where they can send a message to the seller. 
 The message will have the name of the item the date and the message the user wants to ask. 
 */
-
-import React, { Component } from 'react'
+import React, {useState} from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
+import { useNavigate } from 'react-router-dom';
+import { uri } from '../util';
 
+const Message = ({post}) => {
 
-async function handleUploadImage(event) {
-    event.preventDefault();
+    const [date, setDate] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
-    const message_data = JSON.stringify({"message_reciever" : event.target[0].value, 
-                                         "date" : event.target[1].value,
-                                         "title" : event.target[2].value,
-                                         "message" : event.target[3].value,
-                                         "email": sessionStorage.getItem("email")
-                                        })
+    const submitLogin = (e) => {
+        console.log("date is: " + date);
+        console.log("message is: " + message);
 
-    try {
-        const response = await fetch('http://localhost:5000/contact' , {
-            method : "POST",
-            body : message_data,
-            headers: { 'Content-Type': 'application/json' }
-        })
-        const parsedResponse = await response.json();
-        console.log(parsedResponse)
-    } catch (error) {
-        console.log(error)
-    }
-
-    
-
-
-}
-
-export default class Message extends Component {
-
-    render (){  
-      
+        e.preventDefault();
+        
+        return fetch(`${uri}/message`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({date, message})
+        }).then(response => response.text())
+            .then(result => {
+                if (result === "success") {
+                    window.alert("Message sent");
+                    sessionStorage.setItem("date", date, "message", message);
+                    if (sessionStorage.getItem("route") !== null) {
+                        const route = sessionStorage.getItem("route");
+                        sessionStorage.removeItem("route");
+                        navigate(route);
+                    } else {
+                        navigate("/Home");
+                    }
+                } else {
+                    window.alert("Unable to send")
+                }
+            })
+            .catch(e => window.alert(e))
+     }
         return (
             <div>
                 <NavBar />
                 <div className="auth-inner3">
-                    <form onSubmit={handleUploadImage}>
+                    <form onSubmit={(e) => submitLogin(e)}>
                         <div className="title">
                             <h3>Contact Seller</h3> 
                         </div>
@@ -62,6 +65,9 @@ export default class Message extends Component {
                             type="date"
                             className="form-control"
                             placeholder="Enter date"
+                            onChange={(e) => setDate(e.target.value)}
+                            name="date"
+                            id="date"
                         />
                         <br></br>
                         {/* This will display the name of the item */}
@@ -77,6 +83,9 @@ export default class Message extends Component {
                             type="text"
                             className="form-control"
                             placeholder="Write message"
+                            onChange={(e) => setMessage(e.target.value)}
+                            name="message"
+                            id="message"
                         />
                         <div className= "submit-button">
                             <button type="submit" className="btn btn-primary">
@@ -89,4 +98,4 @@ export default class Message extends Component {
             </div>
         )
     }
-}
+export default Message;
