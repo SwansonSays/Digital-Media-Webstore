@@ -30,7 +30,7 @@ function MyPosts(){
   
 
     const [profile, setUser] = useState([]);
-    const num_items = useState([]);
+    
     useEffect(() => {
         async function fetchUser() {
             try {
@@ -38,7 +38,6 @@ function MyPosts(){
             const request = JSON.stringify({email: email});
             const response = await fetch(`${uri}/profile`, {method: 'POST', headers: { 'Content-Type': 'application/json'}, body:  request});
             const parsedResponse = await(response.json());
-            const num_items = parsedResponse.length;
             setUser(parsedResponse);
             } catch(error) {
                 console.error(error)
@@ -65,7 +64,7 @@ function MyPosts(){
                                 <div className="card-body">
                                     <table className="table table-bordered">
                                         <thead>
-                                            <td>{num_items} results found</td>
+                                            <td>{posts.length} results found</td>
                                              <tr>
                                                 <th>Post Name</th>
                                                 <th>Status</th>
