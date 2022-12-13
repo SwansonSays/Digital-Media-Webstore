@@ -391,10 +391,9 @@ button {
 }
 
 img.free-post-image {
-    display: unset;
-    margin-left: unset;
-    margin-right: unset;
-    width: initial;
+    margin-left: 9.375rem;
+    margin-top: -18.938rem;
+    width: 30%;
 }
 .asterisk{
     color: red;

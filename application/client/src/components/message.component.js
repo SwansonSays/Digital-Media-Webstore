@@ -4,45 +4,81 @@ If a user wants an item that is not free they will be redirected to this page
 where they can send a message to the seller. 
 The message will have the name of the item the date and the message the user wants to ask. 
 */
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import NavBar from '../NavBar';
 import Footer from "../Footer";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { uri } from '../util';
 
-const Message = ({post}) => {
-
+const Message = () => {
+    const location = useLocation();
+    const post = location.state;
     const [date, setDate] = useState("");
     const [message, setMessage] = useState("");
+    const [author, setAuthor] = useState("");
+    const [title, setTitle] = useState("");
     const navigate = useNavigate();
+ 
+
+    useEffect(() => {
+        setFields();
+    }, [])
+
+    function setFields() {
+        if (post !== null) {
+            setAuthor(post.author);
+            setTitle(post.title);
+        }
+
+
+        //If text fields are saved, load the values on render
+        if (sessionStorage.getItem("loggedIn") === "true" && sessionStorage.getItem("message") !== null) {
+            setDate(sessionStorage.getItem("date"));
+            setMessage(sessionStorage.getItem("message"));
+            setAuthor(sessionStorage.getItem("author"));
+            setTitle(sessionStorage.getItem("title"));
+
+            sessionStorage.removeItem("date");
+            sessionStorage.removeItem("message");
+            sessionStorage.removeItem("author");
+            sessionStorage.removeItem("title");
+        }
+    }
 
     const submitLogin = (e) => {
         console.log("date is: " + date);
         console.log("message is: " + message);
-
+        console.log("author is: " + author);
+        console.log("title is: " + title);
         e.preventDefault();
-        
-        return fetch(`${uri}/message`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({date, message})
-        }).then(response => response.text())
-            .then(result => {
-                if (result === "success") {
-                    window.alert("Message sent");
-                    sessionStorage.setItem("date", date, "message", message);
-                    if (sessionStorage.getItem("route") !== null) {
-                        const route = sessionStorage.getItem("route");
-                        sessionStorage.removeItem("route");
-                        navigate(route);
+
+        //If user is not logged in, save form to sessionStorage adn reroute to logion
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+            sessionStorage.setItem("message", message);
+            sessionStorage.setItem("date", date);
+            sessionStorage.setItem("author", author);
+            sessionStorage.setItem("title", title);
+            sessionStorage.setItem("route", "/Message");
+
+            window.alert("Must be logged in to send message.");
+
+            navigate('/Login', { state: post });
+        } else {
+            return fetch(`${uri}/message`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, message })
+            }).then(response => response.text())
+                .then(result => {
+                    if (result === "success") {
+                        window.alert("Message sent");
+                        navigate("/");
                     } else {
-                        navigate("/Home");
+                        window.alert("Unable to send")
                     }
-                } else {
-                    window.alert("Unable to send")
-                }
-            })
-            .catch(e => window.alert(e))
+                })
+                .catch(e => window.alert(e))
+        }
      }
         return (
             <div>
@@ -57,7 +93,6 @@ const Message = ({post}) => {
                         <input 
                             type="text"
                             className="form-control"
-                            value= {post.author}
                         />
                         <br></br>
                         {/* This will display the date */}
@@ -69,6 +104,7 @@ const Message = ({post}) => {
                             onChange={(e) => setDate(e.target.value)}
                             name="date"
                             id="date"
+                            value={ date }
                         />
                         <br></br>
                         {/* This will display the name of the item */}
@@ -76,7 +112,6 @@ const Message = ({post}) => {
                         <input 
                             type="text"
                             className="form-control"
-                            value= {post.title}
                         />
                         <br></br>
                         {/* This will be the place the user will write their message */}
@@ -88,6 +123,7 @@ const Message = ({post}) => {
                             onChange={(e) => setMessage(e.target.value)}
                             name="message"
                             id="message"
+                            value={ message }
                         />
                         <div className= "submit-button">
                             <button type="submit" className="btn btn-primary">
