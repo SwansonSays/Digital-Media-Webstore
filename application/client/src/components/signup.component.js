@@ -38,7 +38,7 @@ const Signup = () => {
                 if (result === "success") {
                     window.alert("Registration was successful");
                     localStorage.setItem("firstname", firstname, "lastname",lastname, "id",id, "email", email);
-                    navigate("/Home");
+                    navigate("/");
                 } else {
                     window.alert("User is already registered or some of the fields are not valid.")
                 }

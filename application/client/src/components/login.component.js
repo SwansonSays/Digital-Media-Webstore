@@ -16,13 +16,14 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
+    const post = location.state;
 
     const submitLogin = (e) => {
         console.log("email is: " + email);
         console.log("password is: " + password);
 
         e.preventDefault();
-        
+
         return fetch(`${uri}/login`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -40,12 +41,12 @@ const Login = () => {
                         sessionStorage.removeItem("route");
                         //reroutes with post details if neccisary
                         if (route === "/FreePost" || route === "/Message") {
-                            navigate(route, { state: location.state });
+                            navigate(route, { state: post });
                         }
                         //otherwise reroutes to previous page or Home
                         navigate(route);
                     } else {
-                        navigate("/Home");
+                        navigate("/");
                     }
                 } else {
                     window.alert("Wrong credentials")

@@ -21,23 +21,6 @@ const NavBar = () => {
     const [category, setCategory] = useState("all");
     const [searchText, setSearchText] = useState("");
     const navigate = useNavigate();
-/*
-    function setCategories() {
-        //Categories return from DB goes here
-        const categories = { 'cat': ['Audio', 'Video','Image', 'Class'] }; //Hard coded for testing
-        /*
-        const options = []; //Array of <option> to be returned to dropdown
-
-        //Populates options array for each category returned by DB
-        for (let i = 0; i <= categories.cat.length - 1; i++) {
-            options.push(<option key={i} value={categories.cat[i]}>{categories.cat[i]}</option>);
-        }
-        
-        const options = categories.cat.map((cat, index) => <option key={index} value={cat}>{cat}</option>)
-
-        return options;
-    }
-    */
     const [categoryOptions, setCategoryOptions] = useState([]);
  
     //Calls setCatergories() on page load
@@ -50,32 +33,19 @@ const NavBar = () => {
             } catch (error) {
                 console.error(error);
             }
-            //Categories return from DB goes here
-            // const categories = { 'categories': ['Audio', 'Video', 'Class'] }; //Hard coded for testing
-     
-            // const options = []; //Array of <option> to be returned to dropdown
-     
-            // //Populates options array for each category returned by DB
-            // for (let i = 0; i <= categories.categories.length - 1; i++) {
-            //     options.push(<option value={categories.categories[i]}>{categories.categories[i]}</option>);
-            // }
-            
-            // return options;
         }
         setCategories();
         setPreviousSearch();
     }, [])   
 
     function checkLogin() {
-        //sessionStorage.setItem("loggedIn", "true");
-        //sessionStorage.removeItem("loggedIn");
         var loggedIn = sessionStorage.getItem("loggedIn");
 
         if (loggedIn === "true") {
             return  <div className="nav-right">
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Upload">Post</Link>
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Dashboard">DashBoard</Link>
-                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Home" onClick={ logout }>Logout</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/" onClick={ logout }>Logout</Link>
                     </div>
         } else {
             return  <div className="nav-right">
@@ -87,31 +57,35 @@ const NavBar = () => {
     }
 
     function logout() {
-        sessionStorage.removeItem("loggedIn");
+        sessionStorage.clear();
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
+        if (event.target.searchData.value.match("^[A-Za-z0-9]{0,40}$") != null) {
+            // prints search value and seletected category to console
+            console.log("searched " + event.target.searchData.value + " in category " + category);
+            sessionStorage.setItem("searchData", event.target.searchData.value);
 
-        // prints search value and seletected category to console
-        console.log("searched " + event.target.searchData.value + " in category " + category);
-        sessionStorage.setItem("searchData", event.target.searchData.value);
+            try {
+                const response = await fetch(`${uri}/search`, {
+                    method: 'POST',
+                    body: JSON.stringify({ "book": event.target.searchData.value, "Category": category }),
+                    headers: { 'Content-Type': 'application/json' }
 
-        try {
-            const response = await fetch(`${uri}/search`, {
-                method  : 'POST',
-                body : JSON.stringify({"book":event.target.searchData.value,"Category":category}),
-                headers: { 'Content-Type': 'application/json' }
-
-            })
-            //console.log(response)
-            const parsedResponse = await response.json();
-            console.log(parsedResponse)
-            //setSearchResults(parsedResponse);
-            navigate('/ResultsPage', { state: parsedResponse });
-        } catch (error) {
-            console.error(error)
+                })
+                //console.log(response)
+                const parsedResponse = await response.json();
+                console.log(parsedResponse)
+                //setSearchResults(parsedResponse);
+                navigate('/ResultsPage', { state: parsedResponse });
+            } catch (error) {
+                console.error(error)
+            }
+        } else {
+            window.alert("Search must only contain alphanumeric characters and be less then 40 characters")
         }
+    
 /*        
         //array for search results to be displayed
         const resultsArray = [{ "title": "TestTitle", "description": "testbody", "author": "robby", "path": "/halloween.jpeg", "price": "free", "category": "image" }, { "title": "Test 2 Title", "body": "testbody 2", "path": "/gator.jpeg" }]; //Hard coded search results to test post and postpage
@@ -135,14 +109,14 @@ const NavBar = () => {
     }
 
     function setPreviousSearch() {
-        console.log("In previous search [" + sessionStorage.getItem("searchData") + "]");
+        //console.log("In previous search [" + sessionStorage.getItem("searchData") + "]");
         if (sessionStorage.getItem("searchData") !== null) {
-            console.log("in if");
+            //console.log("in if");
             const addText = sessionStorage.getItem("searchData");
             sessionStorage.removeItem("searchData");
             setSearchText(addText);
         } else {
-            console.log("in else");
+            //console.log("in else");
             return "";
         }
     }
