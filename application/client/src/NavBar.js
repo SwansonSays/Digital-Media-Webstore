@@ -44,7 +44,7 @@ const NavBar = () => {
         if (loggedIn === "true") {
             return  <div className="nav-right">
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Upload">Post</Link>
-                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/Dashboard">DashBoard</Link>
+                        <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/myprofile">DashBoard</Link>
                         <Link className="btn btn-lg btn-block nav-link bg-white nav-loggedin" to="/" onClick={ logout }>Logout</Link>
                     </div>
         } else {
