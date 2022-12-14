@@ -10,6 +10,7 @@ import Footer from "../Footer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { uri } from '../util';
 
 const FreePost = () => {
     const navigate = useNavigate();
@@ -91,7 +92,7 @@ const FreePost = () => {
                 <NavBar />
                 <article className='flex-container'>
                 <div className='child-2'>
-                        <img className='free-post-image' src={path} alt={title}/>
+                        <img className='free-post-image' src={`${uri}/static/media/${path}`} alt={title}/>
                     </div>
                     {/* This displays the name of the item, seller, price, and category */}
                     <div className='child-1'>

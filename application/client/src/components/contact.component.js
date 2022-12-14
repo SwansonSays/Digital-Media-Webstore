@@ -7,6 +7,7 @@ and if the user wants it will redirect them to message the seller.
 import NavBar from '../NavBar';
 import Footer from "../Footer";
 import { useNavigate, useLocation } from "react-router-dom";
+import { uri } from '../util';
 
 const ContactPost = () => {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const ContactPost = () => {
                     </span> 
                 </div> 
                 <div>
-                    <img className = "bridge-img" src={post.path} alt={post.title}/>
+                    <img className = "bridge-img" src={`${uri}/static/media/${post.path}`} alt={post.title}/>
                 </div> 
                 <Footer />
             </div>            
