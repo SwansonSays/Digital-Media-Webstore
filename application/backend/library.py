@@ -161,6 +161,22 @@ def post_1():
     resp = {"Response" : "200 OK"}
     return Response(json.dumps(resp), mimetype='application/json')
 
+#endpoint for populating top items in home page
+@app.route('/topresults', methods=['GET'])
+def topresults():
+    if request.method == 'GET':
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id where item_approved = 1 ORDER BY item_created_date desc LIMIT 4")
+        conn.commit()
+        top_eight = cursor.fetchall()
+        print(top_eight)
+        jsn=[]
+        for top in top_eight:
+            jsn.append({"title": top[0], "description": top[1], "author": top[2], "path": str(top[3]), "price": top[4], "category": top[5] })
+        cursor.close()
+        conn.close()
+        return Response(json.dumps(jsn), mimetype='application/json')
 
 # endpoint for search dropdown
 @app.route('/categories', methods=['GET', 'POST'])
@@ -188,7 +204,7 @@ def home():
     if request.method == 'GET':
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id LIMIT 8")
+        cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id where item_approved = 1 LIMIT 8")
         conn.commit()
         top_eight = cursor.fetchall()
         print(top_eight)
@@ -225,7 +241,7 @@ def search():
         conn = mysql.connect()
         cursor = conn.cursor()
         if(book['book']=="" and book['Category'] == 'all' ):
-            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id")
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id where item_approved = 1")
             conn.commit()
             data = cursor.fetchall()
             print(data)
@@ -241,7 +257,7 @@ def search():
             return Response(json.dumps(jsn),  mimetype='application/json')
 
         elif(book['Category'] == 'all' and book['book']!=""):
-            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_title LIKE %s ", ( '%' + book['book'] + '%'))
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE  item_approved = 1 and item_title LIKE %s ", ( '%' + book['book'] + '%'))
             conn.commit()
             data = cursor.fetchall()
             print(data)
@@ -256,7 +272,7 @@ def search():
             return Response(json.dumps(jsn),  mimetype='application/json')
 
         elif (book['Category'] != 'all' and book['book']==""):
-            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_category = %s", (book['Category']))
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE  item_approved = 1 and item_category = %s", (book['Category']))
             conn.commit()
             data = cursor.fetchall()
             print(data)
@@ -272,7 +288,7 @@ def search():
 
 
         elif(book['Category'] != 'all'):
-            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_category = %s AND item_title LIKE %s ", (book['Category'], '%' + book['book'] + '%'))
+            cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id WHERE item_approved = 1 and item_category = %s AND item_title LIKE %s ", (book['Category'], '%' + book['book'] + '%'))
             conn.commit()
             data = cursor.fetchall()
             print(data)
