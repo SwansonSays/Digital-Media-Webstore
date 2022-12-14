@@ -4,6 +4,7 @@
  * Description: Component for individual posts to be displayed using bootstrap cards
  */
 import { useNavigate } from "react-router-dom";
+import { uri } from './util';
 
 const Post = ({ post }) => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Post = ({ post }) => {
 
     return (
         <div className="card" style={{ width: '18rem' }}>
-            <img className="card-img-top" src={post.path} alt={post.title}/>
+            <img className="card-img-top" src={`${uri}/static/media/${post.path}`} alt={post.title}/>
             <div className="card-body">
                 <h5 className="card-title">{post.title }</h5>
                 <p className="card-text text-truncate">{post.description}</p>
