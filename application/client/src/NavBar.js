@@ -16,6 +16,7 @@ Comments - 1) Please remove commented block of code before moving to deployment 
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect,useState } from 'react';
 import { uri } from './util';
+import Logo from "./img/mediastore2.png";
 
 const NavBar = () => {
     const [category, setCategory] = useState("all");
@@ -128,7 +129,7 @@ const NavBar = () => {
             </div>
             <div className="nav-content">
                 <div className="nav-left">
-                    <h1 href="/"><Link className="brand nav-brand" to="/">Media&nbsp;Store</Link></h1>
+                    <h1 href="/"><Link className="brand nav-brand"to="/"><img id="logo" src={Logo} alt="Mediastore" /></Link></h1>
                     <Link className="btn btn-lg btn-block nav-link bg-white nav-button" to="/AboutUs">About Us</Link>
                 </div>
                 <form className="searchForm" onSubmit={handleSubmit}>
