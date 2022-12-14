@@ -20,9 +20,9 @@ app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
-app.config['MYSQL_DATABASE_USER'] = 'db_admin'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
-app.config['MYSQL_DATABASE_DB'] = 'mediastore'
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
+app.config['MYSQL_DATABASE_DB'] = 'mediastore2'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['SECRET_KEY'] = "CSC648secretkey"
 
@@ -80,7 +80,7 @@ def contactSeller():
         conn = mysql.connect()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT user_id from user_records where user_username = %s", contact_request['message_reciever'])
+        cursor.execute("SELECT user_id from user_records where user_username = %s", contact_request['author'])
 
         receiver_id = cursor.fetchall()
 
@@ -91,7 +91,7 @@ def contactSeller():
         if receiver_id:
 
             insert_statement = (
-                "INSERT INTO message(message_text, message_created, message_sender_user_id, message_recipient_user_id)"
+                "INSERT INTO message(message_body_text, message_created_date, message_sender_id, message_receiver_id)"
                 "VALUES (%s, %s, %s, %s)"
             )
 
@@ -101,8 +101,9 @@ def contactSeller():
 
             conn.commit()
             print("Insert completed")
-            resp = {"Response" : "200 OK"}
-            return Response(json.dumps(resp), mimetype='application/json')
+            #resp = {"Response" : "200 OK"}
+            return "success"
+        #Response(json.dumps(resp), mimetype='application/json')""
         else:
             print("Bad Request")
             resp = {"Response" : "400 Bad Request"}
@@ -118,23 +119,9 @@ def post():
         conn = mysql.connect()
         cursor = conn.cursor()
 
-        try:
-            target=os.path.join(UPLOAD_FOLDER,'media')
-            if not os.path.isdir(target):
-                os.mkdir(target)
-            print("welcome to upload`")
-            file = request.files['file'] 
-            filename = secure_filename(file.filename)
-            destination="/".join([target, filename])
-            file.save(destination)
-            session['uploadFilePath']=destination
-            print("File saved successfully")
-            resp = {"Response" : "200 OK"}
-            return Response(json.dumps(resp), mimetype='application/json')
-        except:
-            print("first api call")
 
         print("welcome to /post!!")
+        print(post_request)
         print("EMAIL : ", post_request['email'])
 
         user_id_insert = ("SELECT user_id FROM user_records WHERE user_email = %s ")
@@ -144,14 +131,14 @@ def post():
         item_creator_id = fetch[0][0]
         today = date.today()
         current_date = today.strftime("%y-%m-%d")
-
+        print(int(post_request['price']))
         insert_statement = (
             "INSERT INTO item (item_title, item_category, item_description, item_price, item_creator_id, item_created_date, item_file, item_path, item_approved) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            "VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         )
 
-        data = (post_request['name'], post_request['category'], post_request['description'], post_request['price'], item_creator_id, current_date, post_request['name'], post_request['name'], 'pending')
-
+        data = (post_request['name'], post_request['category'], post_request['description'], int(post_request['price']), item_creator_id, current_date, post_request['name'], post_request['name'], 0)
+        print(data)
         cursor.execute(insert_statement, data)
         conn.commit()
         print("Insert completed")
