@@ -64,10 +64,11 @@ const Message = () => {
 
             navigate('/Login', { state: post });
         } else {
-            return fetch(`${uri}/message`, {
+            const email = sessionStorage.getItem("email")
+            return fetch(`${uri}/contact`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date, message })
+                body: JSON.stringify({ date, message, author, email })
             }).then(response => response.text())
                 .then(result => {
                     if (result === "success") {
