@@ -13,6 +13,7 @@ from flask import Response
 from werkzeug.utils import secure_filename
 from datetime import date
 from user import user
+from PIL import Image
 
 
 app = Flask(__name__)
@@ -20,9 +21,9 @@ app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
-app.config['MYSQL_DATABASE_USER'] = 'db_admin'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
-app.config['MYSQL_DATABASE_DB'] = 'mediastore'
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
+app.config['MYSQL_DATABASE_DB'] = 'mediastore2'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['SECRET_KEY'] = "CSC648secretkey"
 
@@ -31,7 +32,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 mysql = MySQL()
-
+global fname
 # intialize the extension
 mysql.init_app(app)
 
@@ -123,6 +124,19 @@ def post():
         print("welcome to /post!!")
         print(post_request)
         print("EMAIL : ", post_request['email'])
+        #### code to create thumbnail
+        target=os.path.join(UPLOAD_FOLDER,'media')
+        target="/".join([target, fname])
+        image = Image.open(target)
+        MAX_SIZE = (500, 500)
+          
+        image.thumbnail(MAX_SIZE)
+          
+        # creating thumbnail
+        destination=os.path.join(UPLOAD_FOLDER,'thumbnail')
+        destination="/".join([destination, fname])
+        image.save(destination)
+        #image.show()
 
         user_id_insert = ("SELECT user_id FROM user_records WHERE user_email = %s ")
    
@@ -137,23 +151,25 @@ def post():
             "VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         )
 
-        data = (post_request['name'], post_request['category'], post_request['description'], int(post_request['price']), item_creator_id, current_date, post_request['name'], post_request['name'], 0)
+        data = (post_request['name'], post_request['category'], post_request['description'], int(post_request['price']), item_creator_id, current_date, fname, fname, 0)
         print(data)
         cursor.execute(insert_statement, data)
         conn.commit()
         print("Insert completed")
-        resp = {"Response" : "200 OK"}
-        return Response(json.dumps(resp), mimetype='application/json')
+        #resp = {"Response" : "200 OK"}
+        return "success"
 
 
 @app.route('/savefile', methods=['POST'])
 def post_1():
+    global fname
     target=os.path.join(UPLOAD_FOLDER,'media')
     if not os.path.isdir(target):
         os.mkdir(target)
     print("welcome to upload`")
     file = request.files['file'] 
     filename = secure_filename(file.filename)
+    fname = filename
     destination="/".join([target, filename])
     file.save(destination)
     session['uploadFilePath']=destination
