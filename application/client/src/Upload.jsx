@@ -35,7 +35,8 @@ const Upload = () => {
 			const file_data = new FormData();
 			const upload_data = JSON.stringify({
 				"name": event.target[0].value, "category": event.target[1].value,
-				"price": event.target[2].value, "description": event.target[3].value
+				"price": event.target[2].value, "description": event.target[3].value,
+				"email": sessionStorage.getItem("email")
 			})
 			file_data.append('file', uploadInput.files[0]);
 
@@ -85,7 +86,7 @@ const Upload = () => {
 
 	function setCategories() {
 		//Categories return from DB goes here
-		const categories = { 'cat': ['Audio', 'Video', 'Class'] }; //Hard coded for testing
+		const categories = { 'cat': ['Image','Audio', 'Video', 'Class'] }; //Hard coded for testing
 		/*
 		const options = []; //Array of <option> to be returned to dropdown
 
