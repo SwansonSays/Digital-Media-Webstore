@@ -40,20 +40,27 @@ const Upload = () => {
 			file_data.append('file', uploadInput.files[0]);
 
 			try {
+				await fetch(`${uri}/savefile`, {
+					method: 'POST',
+					body: file_data
+				})
 				const response = await fetch(`${uri}/post`, {
 					method: "POST",
 					body: upload_data,
 					headers: { 'Content-Type': 'application/json' }
-				})
+				}).then(response => response.text())
+					.then(result => {
+						if (result === "success") {
+							window.alert("Succefully Posted");
+							navigate("/");
+						} else {
+							window.alert("Uplaod Failed. Please try again")
+						}
+					})
+					.catch(e => window.alert(e))
 			} catch (error) {
 				console.error(error)
 			}
-
-
-			fetch(`${uri}/savefile`, {
-				method: 'POST',
-				body: file_data
-			})
         }
 	}
 
