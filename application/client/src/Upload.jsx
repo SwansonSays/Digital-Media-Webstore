@@ -49,13 +49,19 @@ const Upload = () => {
 					method: "POST",
 					body: upload_data,
 					headers: { 'Content-Type': 'application/json' }
-				})
+				}).then(response => response.text())
+					.then(result => {
+						if (result === "success") {
+							window.alert("Succefully Posted");
+							navigate("/");
+						} else {
+							window.alert("Uplaod Failed. Please try again")
+						}
+					})
+					.catch(e => window.alert(e))
 			} catch (error) {
 				console.error(error)
 			}
-
-
-
         }
 	}
 
