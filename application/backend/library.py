@@ -20,9 +20,9 @@ app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
-app.config['MYSQL_DATABASE_DB'] = 'mediastore2'
+app.config['MYSQL_DATABASE_USER'] = 'db_admin'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
+app.config['MYSQL_DATABASE_DB'] = 'mediastore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['SECRET_KEY'] = "CSC648secretkey"
 

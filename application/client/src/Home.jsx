@@ -63,8 +63,6 @@ return (
     <div>
         <NavBar></NavBar>
         <br/>
-        <h3 className="display-1 home-title"><strong><u>Media Store</u></strong></h3>
-        <br/>
         <h4 className="home-description">
             Welcome to Media Store, the one stop shop for all your digital media needs. Here you will find photos, videos, music, and anything else you could wish for to finish your SFSU projects on time and with style.
         </h4>
