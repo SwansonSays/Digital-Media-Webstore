@@ -67,7 +67,7 @@ const FreePost = () => {
                 alink.download = title;
                 alink.click();
             })
-        })
+        }).catch(e => window.alert("Failed to download. Please try again."))
     }
 
     //Checks if user is logged in. If not routes user to login and passes post details
