@@ -57,7 +57,7 @@ const FreePost = () => {
         ****************************************/
 
         //Fetches the file from public
-        fetch(`${uri}/static/media/${path}`).then(response => {
+        fetch(`${uri}/static/thumbnail/${path}`).then(response => {
             response.blob().then(blob => {
                 //Creates object out of file
                 const fileURL = window.URL.createObjectURL(blob);
@@ -92,7 +92,7 @@ const FreePost = () => {
                 <NavBar />
                 <article className='flex-container'>
                     <div className='child-2'>
-                        <img className='free-post-image' src={`${uri}/static/media/${path}`} alt={title}/>
+                        <img className='free-post-image' src={`${uri}/static/thumbnail/${path}`} alt={title}/>
                     </div>
                     {/* This displays the name of the item, seller, price, and category */}
                     <div className='child-1'>

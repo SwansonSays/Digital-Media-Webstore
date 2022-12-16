@@ -66,7 +66,7 @@ const Post = ({ post }) => {
         ****************************************/
 
         //Fetches the file from public
-        fetch(`${uri}/static/media/${path}`).then(response => {
+        fetch(`${uri}/static/thumbnail/${path}`).then(response => {
             response.blob().then(blob => {
                 //Creates object out of file
                 const fileURL = window.URL.createObjectURL(blob);
@@ -98,7 +98,7 @@ const Post = ({ post }) => {
 
     return (
         <div className="card" style={{ width: '18rem' }}>
-            <img className="card-img-top" src={`${uri}/static/media/${post.path}`} alt={post.title}/>
+            <img className="card-img-top" src={`${uri}/static/thumbnail/${post.path}`} alt={post.title}/>
             <div className="card-body">
                 <h5 className="card-title">{post.title }</h5>
                 <p className="card-text text-truncate">{post.description}</p>

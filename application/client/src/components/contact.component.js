@@ -22,7 +22,7 @@ const ContactPost = () => {
                 <NavBar />
                 <div className="flex-container">
                     <div className="child-2">
-                        <img className="free-post-image" src={`${uri}/static/media/${post.path}`} alt={post.title} />
+                        <img className="free-post-image" src={`${uri}/static/thumbnail/${post.path}`} alt={post.title} />
                     </div>
                     {/* This displays the name of the item*/}
                     <div className="child-1">
