@@ -130,7 +130,7 @@ def messages():
         email = data["email"]
 
         callToSQL = f"""SELECT message_body_text, user_username, message_created_date FROM message JOIN """ \
-                f"""user_records ON message_receiver_id = user_id WHERE user_id = (SELECT user_id FROM user_records """ \
+                f"""user_records ON message_sender_id = user_id WHERE message_receiver_id = (SELECT user_id FROM user_records """ \
                 f"""WHERE user_email = "{email}")"""
         cursor.execute(callToSQL)
         values = cursor.fetchall()

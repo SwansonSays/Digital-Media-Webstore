@@ -21,9 +21,9 @@ app.register_blueprint(user)
 CORS(app)
 
 # setting configuration to connect to the DB
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
-app.config['MYSQL_DATABASE_DB'] = 'mediastore2'
+app.config['MYSQL_DATABASE_USER'] = 'db_admin'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'csc648dbpassword'
+app.config['MYSQL_DATABASE_DB'] = 'mediastore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['SECRET_KEY'] = "CSC648secretkey"
 
@@ -39,39 +39,6 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-
-@app.route('/login', methods=['POST'])
-def process_json():
-    json = request.json
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    email = json["email"]
-    password = json["password"]
-    #callToSQL = (f'SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest().encode("utf-8")}"')
-    cursor.execute(('SELECT * FROM user_records WHERE email = "{email}" AND password = "{hashlib.md5(password.encode()).hexdigest().encode("utf-8")}"'))
-    account = cursor.fetchone()
-    if account:
-        return 'OK'
-    else:
-        return 'Not OK'
-
-@app.route('/register', methods=['POST'])
-def process_json_reg():
-    json = request.json
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    email = json["email"]
-    password = json["password"]
-    username = json["student_id"]
-    first_name = json["first_name"]
-    last_name = json["last_name"]
-    callToSQL = 'INSERT INTO user_records (user_type,user_username,user_first_name,user_last_name,email,password) VALUES ("registered_user","{username}","{first_name}","{last_name}","{email}","{hashlib.md5(password.encode()).hexdigest()}")'
-    cursor.execute(callToSQL)
-    state = cursor.fetchone()
-    if state:
-        return 'OK'
-    else:
-        return 'Not OK'
 
 @app.route('/contact', methods=['POST'])
 def contactSeller():
@@ -109,7 +76,6 @@ def contactSeller():
             print("Bad Request")
             resp = {"Response" : "400 Bad Request"}
             return Response(json.dumps(resp), mimetype='application/json')
-
 
 
 @app.route('/post', methods=['POST'])
