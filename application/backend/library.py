@@ -186,7 +186,7 @@ def home():
     if request.method == 'GET':
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id where item_approved = 1 ORDER BY item_created_date desc LIMIT 8")
+        cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id where item_approved = 1 ORDER BY item_created_date desc  LIMIT 8")
         conn.commit()
         top_eight = cursor.fetchall()
         print(top_eight)
