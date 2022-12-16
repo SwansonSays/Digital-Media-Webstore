@@ -28,6 +28,74 @@ const Post = ({ post }) => {
         }
     }
 
+    //Returns contact seller or download button dependaing on if post if free or not
+    function renderButton() {
+        if (isFree()) {
+            return <button className="btn btn-primary" onClick={handleDownloadClick}>Download</button>;
+        } else {
+            return <button className="btn btn-primary" onClick={handleContactClick}>Contact Seller</button>;
+        }
+    }
+
+    function handleContactClick() {
+        navigate('/Message', { state: post });
+    }
+
+    function handleDownloadClick() {
+        checkLogin();
+    }
+
+    //Check if user is loggedin before requesting file from DB and downloading
+    function downloadPost() {
+        var path = "";
+        var title = "";
+
+        if (post === null) {
+            path = sessionStorage.getItem("freePath");
+            title = sessionStorage.getItem("freeTitle");
+        } else {
+            path = post.path;
+            title = post.title;
+        }
+        /****************************************
+        
+        Call to Db for actual file instead
+        of thumbnail goes here. Replace 
+        post.path in fetch with actual file path
+
+        ****************************************/
+
+        //Fetches the file from public
+        fetch(`${uri}/static/media/${path}`).then(response => {
+            response.blob().then(blob => {
+                //Creates object out of file
+                const fileURL = window.URL.createObjectURL(blob);
+                //Creates anchor values
+                let alink = document.createElement('a');
+                alink.href = fileURL;
+                alink.download = title;
+                alink.click();
+            })
+        }).catch(e => window.alert("Failed to download. Please try again."))
+    }
+
+    //Checks if user is logged in. If not routes user to login and passes post details
+    function checkLogin() {
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+            sessionStorage.setItem("route", "/FreePost");
+
+            sessionStorage.setItem("freePath", post.path);
+            sessionStorage.setItem("freeTitle", post.title);
+            sessionStorage.setItem("freeAuthor", post.author);
+            sessionStorage.setItem("freePrice", post.price);
+            sessionStorage.setItem("freeCategory", post.category);
+
+            navigate("/Login", { state: post });
+        } else {
+            downloadPost();
+        }
+    }
+
     return (
         <div className="card" style={{ width: '18rem' }}>
             <img className="card-img-top" src={`${uri}/static/media/${post.path}`} alt={post.title}/>
@@ -39,7 +107,7 @@ const Post = ({ post }) => {
                 <p className="card-text">Price: { isFree() ? 'Free' :  "$" + post.price}</p>
                 <div className="card-button-wrapper">
                     <button className="btn btn-secondary" onClick={handleClick}>Details</button>
-                    <button className="btn btn-primary" onClick={handleClick}>Contact Seller</button>
+                    { renderButton() }
                 </div>
             </div>
         </div>

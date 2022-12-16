@@ -67,7 +67,7 @@ const FreePost = () => {
                 alink.download = title;
                 alink.click();
             })
-        })
+        }).catch(e => window.alert("Failed to download. Please try again."))
     }
 
     //Checks if user is logged in. If not routes user to login and passes post details
@@ -91,17 +91,19 @@ const FreePost = () => {
             <div>
                 <NavBar />
                 <article className='flex-container'>
-                <div className='child-2'>
+                    <div className='child-2'>
                         <img className='free-post-image' src={`${uri}/static/media/${path}`} alt={title}/>
                     </div>
                     {/* This displays the name of the item, seller, price, and category */}
                     <div className='child-1'>
-                    <h1>{title}</h1>
-                    <h5> Seller: {author} </h5>
-                    <p> Price: $ {price} </p>
-                    <p> Category: {category}</p>
-                    {/* This displays the download button*/}
-                    <button type="button" className="btn btn-primary btn-lg" onClick={ checkLogin }>Download</button> 
+                        <h1 className="post-title">{title}</h1>
+                        <h5 className="post-seller"> Seller: {author} </h5>
+                        <p className="post-category">Category: {category}</p>
+                        <p className="post-price"> Price: $ {price}</p>
+                        {/* This displays the download button*/}
+                        <span clasName="post-button-wrapper">
+                            <button type="button" className="btn btn-primary btn-lg post-button" onClick={checkLogin}>Download</button> 
+                        </span>
                     </div>
                 </article>
                 <Footer />

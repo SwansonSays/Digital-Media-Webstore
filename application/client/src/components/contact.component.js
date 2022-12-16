@@ -20,24 +20,25 @@ const ContactPost = () => {
         return(
             <div>
                 <NavBar />
-                {/* This displays the name of the item*/}
-                <div className="contact-post">
-                     <h1>{post.title}</h1>
-                    <h5> Seller: {post.author} </h5>
+                <div className="flex-container">
+                    <div className="child-2">
+                        <img className="free-post-image" src={`${uri}/static/media/${post.path}`} alt={post.title} />
+                    </div>
+                    {/* This displays the name of the item*/}
+                    <div className="child-1">
+                        <h1 className="post-title">{post.title}</h1>
+                        <h5 className="post-seller"> Seller: {post.author} </h5>
+                        
+                        {/* This tells the user what category it's in and how much it costs */}
+                        <p className="post-category"> Category: {post.category}</p>
+                        <p className="post-price">Price: $ {post.price}</p>
+                        
+                        {/* This will redirect users to the messaging page in order to contact the seller */}
+                        <span className="post-button-wrapper">  
+                            <button type="button" className="btn btn-primary btn-lg post-button" onClick={handleClick}>Contact Seller</button>                 
+                        </span> 
+                    </div> 
                 </div>
-                 {/* This tells the user what category it's in and how much it costs */}
-                <div className="category-price"> 
-                    <p> Category: {post.category}<br></br>Price: $ {post.price}</p>
-                </div>   
-                <div>
-            {/* This will redirect users to the messaging page in order to contact the seller */}
-                    <span>  
-                        <button type="button" className="link-button" onClick={handleClick}>Contact Seller</button>                 
-                    </span> 
-                </div> 
-                <div>
-                    <img className = "bridge-img" src={`${uri}/static/media/${post.path}`} alt={post.title}/>
-                </div> 
                 <Footer />
             </div>            
         );
