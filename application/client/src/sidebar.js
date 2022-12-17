@@ -1,3 +1,8 @@
+/*
+This is the sidebar shown on dashboard, user messages and user posts page
+and it contains links to all three mentioned pages.
+Author: Yasaman Pakdel
+*/
 import {Link} from 'react-router-dom';
 function Sidebar(){
     return(
