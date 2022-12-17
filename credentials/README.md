@@ -8,9 +8,9 @@
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
 1. Server URL or IP
-- http://34.219.91.93:3000/SearchTest
+- http://35.88.249.97:3000/
 2. SSH username
-- ubuntu@ec2-34-219-91-93.us-west-2.compute.amazonaws.com
+- ubuntu@ec2-35-88-249-97.us-west-2.compute.amazonaws.com
 3. SSH password or key. -  react-server-key.pem
     <br> If a ssh key is used please upload the key to the credentials folder.
 - ssh key is uploaded.
