@@ -20,8 +20,7 @@ import SearchTest from "./SearchTest";
 import ResultsPage from "./ResultsPage";
 import Upload from "./Upload";
 import AboutUs from "./AboutUs";
-import HomeDemo from "./HomeDemo";
-import Dashboard from "./Dashboard";
+//import HomeDemo from "./HomeDemo";
 import MyProfile from "./userprofile";
 import MyMessages from "./messages";
 import MyPosts from "./myposts";
@@ -44,8 +43,8 @@ return (
 			{/* This route is for home component
 			with exact path "/", in component props
 			we passes the imported component*/}
-				<Route path="/" element={<HomeDemo />} />
-				<Route path="/Home" element={<Home /> } />
+				<Route path="/" element={<Home />} />
+
 			
 			{/* This route is for about component
 			with exact path "/about", in component
@@ -80,7 +79,7 @@ return (
 
 				<Route path="/Message" element={<Message />} />
 
-				<Route path="/Dashboard" element={<Dashboard /> } />
+				<Route path="/myprofile" element={<MyProfile /> } />
     
 		</Routes>
 	</Router>
