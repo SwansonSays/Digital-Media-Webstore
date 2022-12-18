@@ -1,3 +1,8 @@
+/*
+This is User Messages page. It displays the messages sent to and 
+sent by this user. 
+Author: Yasaman Pakdel
+*/
 import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import Footer from './Footer';
