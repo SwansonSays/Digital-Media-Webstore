@@ -1,3 +1,8 @@
+/*
+This is User Posts page. It displays the list posts the user has uploaded
+ on this website.
+Author: Yasaman Pakdel
+*/
 import {Link} from 'react-router-dom'
 import Sidebar from './sidebar';
 import NavBar from './NavBar';
