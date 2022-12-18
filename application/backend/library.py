@@ -48,12 +48,11 @@ def contactSeller():
         conn = mysql.connect()
         cursor = conn.cursor()
 
+
+        # get user id of seller and buyer
         cursor.execute("SELECT user_id from user_records where user_username = %s", contact_request['author'])
-
         receiver_id = cursor.fetchall()
-
         cursor.execute("SELECT user_id from user_records where user_email = %s", contact_request['email'])
-
         sender_id = cursor.fetchall()
 
         if receiver_id:
@@ -104,8 +103,8 @@ def post():
         image.save(destination)
         #image.show()
 
+        # fetching user_id of seller and inputting data into item table
         user_id_insert = ("SELECT user_id FROM user_records WHERE user_email = %s ")
-   
         cursor.execute(user_id_insert, post_request['email'])
         fetch = cursor.fetchall()
         item_creator_id = fetch[0][0]
@@ -149,6 +148,8 @@ def topresults():
     if request.method == 'GET':
         conn = mysql.connect()
         cursor = conn.cursor()
+
+        # grab data from DB. send back to front-end in array
         cursor.execute("SELECT item_title,item_description, user_username, item_path, item_price, item_category FROM item JOIN user_records ON item_creator_id = user_id where item_approved = 1 ORDER BY item_created_date desc LIMIT 4")
         conn.commit()
         top_eight = cursor.fetchall()
