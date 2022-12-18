@@ -1,4 +1,8 @@
-
+/*
+This is User Dashboard page. It displays the User information, and contains
+a sidebar linking to user messages and user posts page.  
+Author: Yasaman Pakdel
+*/
 import Sidebar from './sidebar';
 import NavBar from './NavBar';
 import Footer from "./Footer";
