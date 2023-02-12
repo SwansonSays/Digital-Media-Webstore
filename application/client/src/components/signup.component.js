@@ -96,7 +96,7 @@ const Signup = () => {
                             <input
                                 type= "email" required
                                 className="form-control"
-                                placeholder="Enter email"
+                                placeholder="Enter your @sfsu.edu email"
                                 pattern="^[a-zA-Z0-9]+@sfsu\.edu$"
                                 onChange={(e) => setEmail(e.target.value)}
                                 name="email"

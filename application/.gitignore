@@ -1,4 +1,7 @@
 client/node_modules
+client/public
 flask-server/venv
 flask-server/server.py
 .idea
+backend/__pycache__
+backend/venv

@@ -57,7 +57,7 @@ const FreePost = () => {
         ****************************************/
 
         //Fetches the file from public
-        fetch(`${uri}/static/thumbnail/${path}`).then(response => {
+        fetch(`${uri}/static/media/${path}`).then(response => {
             response.blob().then(blob => {
                 //Creates object out of file
                 const fileURL = window.URL.createObjectURL(blob);
