@@ -52,7 +52,7 @@ const Upload = () => {
 				}).then(response => response.text())
 					.then(result => {
 						if (result === "success") {
-							window.alert("Succefully Posted");
+							window.alert("Succefully Posted. Pending for approval from admin");
 							navigate("/");
 						} else {
 							window.alert("Uplaod Failed. Please try again")
